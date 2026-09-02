@@ -1,0 +1,19 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Node.js and generated site files
+node_modules/
+.next/
+.vinext/
+dist/
+.wrangler/
+coverage/
+
+# Logs and local tooling
+*.log
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
