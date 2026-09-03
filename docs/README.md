@@ -10,6 +10,9 @@
 | [agent/STATUS.md](agent/STATUS.md) | Заменяемый снимок текущего состояния, следующих действий и открытых вопросов. |
 | [features/day-01-llm-api.md](features/day-01-llm-api.md) | Условие, варианты и критерии приёмки первого челленджа. |
 | [decisions/0001-day-01-local-web.md](decisions/0001-day-01-local-web.md) | Почему для первого челленджа выбран локальный веб-интерфейс. |
+| [features/day-02-response-control.md](features/day-02-response-control.md) | Условие и приёмка второго челленджа. |
+| [decisions/0002-day-02-kotlin-desktop.md](decisions/0002-day-02-kotlin-desktop.md) | Выбор компактного Kotlin Desktop-приложения. |
+| [guides/response-control.md](guides/response-control.md) | Справочная статья о формате, длине, завершении и streaming API. |
 
 ## Как определить канонический файл
 

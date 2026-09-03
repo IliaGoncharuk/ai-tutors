@@ -17,3 +17,8 @@ coverage/
 *.iml
 .DS_Store
 Thumbs.db
+
+# Kotlin / Gradle
+.gradle/
+.kotlin/
+build/
