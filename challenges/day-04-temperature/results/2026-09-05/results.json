@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-09-05T14:59:19.604Z",
+  "endpoint": "https://api.openai.com/v1/responses",
+  "plannedCalls": 9,
+  "status": "completed",
+  "runs": [
+    {
+      "round": 1,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 0,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:19.605Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Стальные искры»\n2. «Робоотряд»\n3. «Механические мастера»\n\nДевиз: **«Вместе справимся с любой задачей!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 0,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 77,
+        "total_tokens": 162
+      },
+      "durationMs": 2064
+    },
+    {
+      "round": 1,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 0.7,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:21.671Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Стальные искры»\n2. «Механический отряд»\n3. «Робо-команда»\n\nДевиз: **«Вместе к цели!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 0.7,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 73,
+        "total_tokens": 158
+      },
+      "durationMs": 3179
+    },
+    {
+      "round": 1,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 1.2,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:24.853Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Стальные искры»\n2. «Механический отряд»\n3. «Робо-мастера»\n\nДевиз: **«Вместе справимся с любой задачей!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 1.2,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 78,
+        "total_tokens": 163
+      },
+      "durationMs": 1956
+    },
+    {
+      "round": 2,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 0,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:26.814Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Стальные искры»\n2. «Робоотряд»\n3. «Механические мастера»\n\nДевиз: **«Вместе справимся с любой задачей!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 0,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 77,
+        "total_tokens": 162
+      },
+      "durationMs": 1521
+    },
+    {
+      "round": 2,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 0.7,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:28.338Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Железные мастера»\n2. «Робоискра»\n3. «Механический отряд»\n\nДевиз: **«Вместе справимся с любой задачей!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 0.7,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 79,
+        "total_tokens": 164
+      },
+      "durationMs": 1835
+    },
+    {
+      "round": 2,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 1.2,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:30.178Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Стальные умники»\n2. «Механический отряд»\n3. «Искры будущего»\n\nДевиз: **«Вместе к новым открытиям!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 1.2,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 75,
+        "total_tokens": 160
+      },
+      "durationMs": 1911
+    },
+    {
+      "round": 3,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 0,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:32.094Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Стальные искры»\n2. «Механический отряд»\n3. «Робо-команда»\n\nДевиз: **«Вместе справимся с любой задачей!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 0,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 77,
+        "total_tokens": 162
+      },
+      "durationMs": 1636
+    },
+    {
+      "round": 3,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 0.7,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:33.735Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Железная пятёрка»\n2. «Робо-отряд»\n3. «Механические мастера»\n\nДевиз: **«Вместе справимся с любой задачей!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 0.7,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 81,
+        "total_tokens": 166
+      },
+      "durationMs": 1551
+    },
+    {
+      "round": 3,
+      "request": {
+        "model": "gpt-5.6-luna",
+        "instructions": "Отвечай по-русски.",
+        "input": "В мастерской было 12 роботов. Привезли ещё 8, затем 5 отправили в школу. Сколько роботов осталось? Покажи вычисление. Придумай три разных названия для оставшейся команды и короткий девиз. Не добавляй новых фактов о количестве роботов.",
+        "temperature": 1.2,
+        "max_output_tokens": 600,
+        "reasoning": {
+          "effort": "none"
+        },
+        "store": false
+      },
+      "startedAt": "2026-09-05T14:59:35.288Z",
+      "status": "completed",
+      "text": "Вычисление: **12 + 8 − 5 = 15**\n\nОсталось **15 роботов**.\n\nНазвания команды:\n1. «Железная искра»\n2. «Механический строй»\n3. «Стальные помощники»\n\nДевиз: **«Вместе справимся с любой задачей!»**",
+      "responseModel": "gpt-5.6-luna",
+      "responseTemperature": 1.2,
+      "responseStatus": "completed",
+      "usage": {
+        "input_tokens": 85,
+        "output_tokens": 77,
+        "total_tokens": 162
+      },
+      "durationMs": 1829
+    }
+  ]
+}

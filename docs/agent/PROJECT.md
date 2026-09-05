@@ -14,8 +14,8 @@
 - Не усложнять инфраструктуру без пользы для конкретного задания.
 
 Подтверждённые условия заданий хранятся в каталоге
-[`docs/features`](../features/); текущий третий челлендж описан в
-[day-03-reasoning-comparison.md](../features/day-03-reasoning-comparison.md).
+[`docs/features`](../features/); список заданий — в
+[карте документации](../README.md), текущий этап — в [STATUS](STATUS.md).
 
 ## Термины
 

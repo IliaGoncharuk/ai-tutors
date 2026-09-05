@@ -15,6 +15,8 @@
 | [guides/response-control.md](guides/response-control.md) | Справочная статья о формате, длине, завершении и streaming API. |
 | [features/day-03-reasoning-comparison.md](features/day-03-reasoning-comparison.md) | Условие, четыре стратегии и критерии сравнения третьего челленджа. |
 | [decisions/0003-day-03-local-web.md](decisions/0003-day-03-local-web.md) | Выбор локальной веб-лаборатории и объективно проверяемой задачи. |
+| [features/day-04-temperature.md](features/day-04-temperature.md) | Условие четвёртого челленджа и критерии сравнения температур. |
+| [decisions/0004-day-04-script.md](decisions/0004-day-04-script.md) | Скрипт и отчёт, затем расширение до локальной лаборатории двух сценариев. |
 
 ## Как определить канонический файл
 
