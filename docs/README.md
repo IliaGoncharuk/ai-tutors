@@ -13,6 +13,8 @@
 | [features/day-02-response-control.md](features/day-02-response-control.md) | Условие и приёмка второго челленджа. |
 | [decisions/0002-day-02-kotlin-desktop.md](decisions/0002-day-02-kotlin-desktop.md) | Выбор компактного Kotlin Desktop-приложения. |
 | [guides/response-control.md](guides/response-control.md) | Справочная статья о формате, длине, завершении и streaming API. |
+| [features/day-03-reasoning-comparison.md](features/day-03-reasoning-comparison.md) | Условие, четыре стратегии и критерии сравнения третьего челленджа. |
+| [decisions/0003-day-03-local-web.md](decisions/0003-day-03-local-web.md) | Выбор локальной веб-лаборатории и объективно проверяемой задачи. |
 
 ## Как определить канонический файл
 
