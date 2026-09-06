@@ -8,6 +8,7 @@
 - [День 2 — управление ответом, Kotlin Desktop](challenges/day-02-response-control/README.md)
 - [День 3 — лаборатория рассуждений](challenges/day-03-reasoning-comparison/README.md)
 - [День 4 — температура: эксперимент и выводы](challenges/day-04-temperature/README.md)
+- [День 5 — сравнение моделей: веб-лаборатория и результаты](challenges/day-05-model-comparison/README.md)
 
 ## Справочные материалы
 

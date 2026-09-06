@@ -1,0 +1,10 @@
+import type { Experiment, Run, Usage } from './web/lib/types';
+export const TASKS: readonly { id: string; title: string; hours: number; points: number; requires: string[] }[];
+export const MODELS: readonly { id: string; name: string; tier: string; input: number; cached: number; output: number }[];
+export const PROMPT: string;
+export const BUDGET_USD: number;
+export const PRICING_DATE: string;
+export const ENDPOINT: string;
+export function createExperiment(): Experiment;
+export function summarize(runs: Run[]): { model: string; completed: number; attempts: number; medianMs: number | null; inputTokens: number; outputTokens: number; costUsd: number; unknownCosts: number }[];
+export function renderReport(experiment: Experiment): string;

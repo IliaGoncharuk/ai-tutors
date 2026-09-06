@@ -1,0 +1,16 @@
+{
+  "name": "day-05-model-comparison",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "lint": "npm --prefix web run lint",
+    "typecheck": "npm --prefix web run typecheck",
+    "test": "node --test tests/*.test.mjs",
+    "test:runtime": "npm --prefix web run test:runtime",
+    "experiment": "node experiment.mjs"
+  }
+}

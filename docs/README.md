@@ -17,6 +17,8 @@
 | [decisions/0003-day-03-local-web.md](decisions/0003-day-03-local-web.md) | Выбор локальной веб-лаборатории и объективно проверяемой задачи. |
 | [features/day-04-temperature.md](features/day-04-temperature.md) | Условие четвёртого челленджа и критерии сравнения температур. |
 | [decisions/0004-day-04-script.md](decisions/0004-day-04-script.md) | Скрипт и отчёт, затем расширение до локальной лаборатории двух сценариев. |
+| [features/day-05-model-comparison.md](features/day-05-model-comparison.md) | Условие Дня 5, измерения, оценка качества и поведение веб-лаборатории. |
+| [decisions/0005-day-05-local-web.md](decisions/0005-day-05-local-web.md) | Выбор локальной лаборатории, трёх моделей OpenAI и авторской задачи с проверяемым оптимумом. |
 
 ## Как определить канонический файл
 
