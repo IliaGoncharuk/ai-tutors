@@ -19,6 +19,8 @@
 | [decisions/0004-day-04-script.md](decisions/0004-day-04-script.md) | Скрипт и отчёт, затем расширение до локальной лаборатории двух сценариев. |
 | [features/day-05-model-comparison.md](features/day-05-model-comparison.md) | Условие Дня 5, измерения, оценка качества и поведение веб-лаборатории. |
 | [decisions/0005-day-05-local-web.md](decisions/0005-day-05-local-web.md) | Выбор локальной лаборатории, трёх моделей OpenAI и авторской задачи с проверяемым оптимумом. |
+| [features/day-06-first-agent.md](features/day-06-first-agent.md) | Условие, поведение и критерии приёмки первого агента. |
+| [decisions/0006-day-06-cli-agent.md](decisions/0006-day-06-cli-agent.md) | Выбор изолированного CLI-агента с политиками и памятью. |
 
 ## Как определить канонический файл
 

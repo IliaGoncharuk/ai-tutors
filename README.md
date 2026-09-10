@@ -9,6 +9,7 @@
 - [День 3 — лаборатория рассуждений](challenges/day-03-reasoning-comparison/README.md)
 - [День 4 — температура: эксперимент и выводы](challenges/day-04-temperature/README.md)
 - [День 5 — сравнение моделей: веб-лаборатория и результаты](challenges/day-05-model-comparison/README.md)
+- [День 6 — первый агент в CLI](challenges/day-06-first-agent/README.md)
 
 ## Справочные материалы
 

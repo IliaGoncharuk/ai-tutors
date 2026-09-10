@@ -1,0 +1,17 @@
+{
+  "name": "day-06-first-agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node cli.mjs",
+    "test": "node --test",
+    "lint": "node --check agent.mjs && node --check policies.mjs && node --check cli.mjs"
+  },
+  "dependencies": {
+    "openai": "7.9.0"
+  }
+}
