@@ -24,6 +24,8 @@
 | [features/day-07-context-persistence.md](features/day-07-context-persistence.md) | Условие Дня 7, сохранение JSON, восстановление диалога и приёмка перезапуска. |
 | [features/day-08-token-accounting.md](features/day-08-token-accounting.md) | Условие Дня 8, подсчёт токенов, стоимость и поведение при переполнении. |
 | [decisions/0007-day-08-cli-token-accounting.md](decisions/0007-day-08-cli-token-accounting.md) | Отдельный CLI, серверный подсчёт, журнал расхода и диагностические сценарии. |
+| [features/day-09-context-compression.md](features/day-09-context-compression.md) | Сжатие истории, отдельное summary и сравнение качества и токенов. |
+| [decisions/0008-day-09-cli-context-compression.md](decisions/0008-day-09-cli-context-compression.md) | Отдельный CLI Дня 9 с атомарной памятью и учётом затрат на summary. |
 
 ## Как определить канонический файл
 

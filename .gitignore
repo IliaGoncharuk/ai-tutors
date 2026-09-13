@@ -30,3 +30,7 @@ challenges/day-07-context-persistence/*.json.*.tmp
 challenges/day-08-token-accounting/messages.json
 challenges/day-08-token-accounting/*.history.json
 challenges/day-08-token-accounting/*.json.*.tmp
+challenges/day-09-context-compression/context.json
+challenges/day-09-context-compression/full-history.json
+challenges/day-09-context-compression/*.history.json
+challenges/day-09-context-compression/*.json.*.tmp

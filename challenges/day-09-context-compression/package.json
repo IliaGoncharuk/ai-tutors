@@ -1,0 +1,15 @@
+{
+  "name": "day-09-context-compression",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "scripts": {
+    "start": "node cli.mjs",
+    "test": "node --test test/*.test.mjs",
+    "lint": "node scripts/check-syntax.mjs",
+    "demo": "node compare.mjs --offline",
+    "demo:live": "node compare.mjs --live"
+  },
+  "dependencies": { "openai": "7.9.0" }
+}
