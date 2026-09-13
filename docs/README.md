@@ -21,6 +21,7 @@
 | [decisions/0005-day-05-local-web.md](decisions/0005-day-05-local-web.md) | Выбор локальной лаборатории, трёх моделей OpenAI и авторской задачи с проверяемым оптимумом. |
 | [features/day-06-first-agent.md](features/day-06-first-agent.md) | Условие, поведение и критерии приёмки первого агента. |
 | [decisions/0006-day-06-cli-agent.md](decisions/0006-day-06-cli-agent.md) | Выбор изолированного CLI-агента с политиками и памятью. |
+| [features/day-07-context-persistence.md](features/day-07-context-persistence.md) | Условие Дня 7, сохранение JSON, восстановление диалога и приёмка перезапуска. |
 
 ## Как определить канонический файл
 

@@ -22,3 +22,8 @@ Thumbs.db
 .gradle/
 .kotlin/
 build/
+
+# Local conversation data (keep personal transcripts outside the repository)
+challenges/day-07-context-persistence/messages.json
+challenges/day-07-context-persistence/*.history.json
+challenges/day-07-context-persistence/*.json.*.tmp

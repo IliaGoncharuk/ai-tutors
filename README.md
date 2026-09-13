@@ -10,6 +10,7 @@
 - [День 4 — температура: эксперимент и выводы](challenges/day-04-temperature/README.md)
 - [День 5 — сравнение моделей: веб-лаборатория и результаты](challenges/day-05-model-comparison/README.md)
 - [День 6 — первый агент в CLI](challenges/day-06-first-agent/README.md)
+- [День 7 — сохранение контекста между запусками](challenges/day-07-context-persistence/README.md)
 
 ## Справочные материалы
 
