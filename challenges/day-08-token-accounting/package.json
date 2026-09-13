@@ -1,0 +1,16 @@
+{
+  "name": "day-08-token-accounting",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "scripts": {
+    "start": "node cli.mjs",
+    "test": "node --test test/*.test.mjs",
+    "lint": "node scripts/check-syntax.mjs",
+    "demo": "node experiment.mjs --offline",
+    "demo:live": "node experiment.mjs --live",
+    "demo:overflow": "node experiment.mjs --live-overflow"
+  },
+  "dependencies": { "openai": "7.9.0" }
+}

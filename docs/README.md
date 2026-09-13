@@ -22,6 +22,8 @@
 | [features/day-06-first-agent.md](features/day-06-first-agent.md) | Условие, поведение и критерии приёмки первого агента. |
 | [decisions/0006-day-06-cli-agent.md](decisions/0006-day-06-cli-agent.md) | Выбор изолированного CLI-агента с политиками и памятью. |
 | [features/day-07-context-persistence.md](features/day-07-context-persistence.md) | Условие Дня 7, сохранение JSON, восстановление диалога и приёмка перезапуска. |
+| [features/day-08-token-accounting.md](features/day-08-token-accounting.md) | Условие Дня 8, подсчёт токенов, стоимость и поведение при переполнении. |
+| [decisions/0007-day-08-cli-token-accounting.md](decisions/0007-day-08-cli-token-accounting.md) | Отдельный CLI, серверный подсчёт, журнал расхода и диагностические сценарии. |
 
 ## Как определить канонический файл
 

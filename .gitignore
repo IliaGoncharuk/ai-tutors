@@ -27,3 +27,6 @@ build/
 challenges/day-07-context-persistence/messages.json
 challenges/day-07-context-persistence/*.history.json
 challenges/day-07-context-persistence/*.json.*.tmp
+challenges/day-08-token-accounting/messages.json
+challenges/day-08-token-accounting/*.history.json
+challenges/day-08-token-accounting/*.json.*.tmp

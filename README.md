@@ -11,6 +11,7 @@
 - [День 5 — сравнение моделей: веб-лаборатория и результаты](challenges/day-05-model-comparison/README.md)
 - [День 6 — первый агент в CLI](challenges/day-06-first-agent/README.md)
 - [День 7 — сохранение контекста между запусками](challenges/day-07-context-persistence/README.md)
+- [День 8 — токены, стоимость диалога и переполнение контекста](challenges/day-08-token-accounting/README.md)
 
 ## Справочные материалы
 
