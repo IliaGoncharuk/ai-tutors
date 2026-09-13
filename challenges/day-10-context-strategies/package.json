@@ -1,0 +1,16 @@
+{
+  "name": "day-10-context-strategies",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "scripts": {
+    "start": "node cli.mjs",
+    "demo": "node compare.mjs --offline",
+    "demo:live": "node compare.mjs --live",
+    "check:live": "npm run lint && npm test && npm run demo:live",
+    "test": "node --test test/*.test.mjs",
+    "lint": "node scripts/check-syntax.mjs"
+  },
+  "dependencies": { "openai": "7.9.0" }
+}

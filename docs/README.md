@@ -26,6 +26,8 @@
 | [decisions/0007-day-08-cli-token-accounting.md](decisions/0007-day-08-cli-token-accounting.md) | Отдельный CLI, серверный подсчёт, журнал расхода и диагностические сценарии. |
 | [features/day-09-context-compression.md](features/day-09-context-compression.md) | Сжатие истории, отдельное summary и сравнение качества и токенов. |
 | [decisions/0008-day-09-cli-context-compression.md](decisions/0008-day-09-cli-context-compression.md) | Отдельный CLI Дня 9 с атомарной памятью и учётом затрат на summary. |
+| [features/day-10-context-strategies.md](features/day-10-context-strategies.md) | Sliding Window, Facts, checkpoints, независимые ветки и сравнение на одном сценарии. |
+| [decisions/0009-day-10-context-strategies.md](decisions/0009-day-10-context-strategies.md) | CLI Дня 10, переключение режимов и реальный эксперимент с раскрытыми исходными данными. |
 
 ## Как определить канонический файл
 

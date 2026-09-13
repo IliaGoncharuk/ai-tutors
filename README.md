@@ -13,6 +13,7 @@
 - [День 7 — сохранение контекста между запусками](challenges/day-07-context-persistence/README.md)
 - [День 8 — токены, стоимость диалога и переполнение контекста](challenges/day-08-token-accounting/README.md)
 - [День 9 — сжатие истории и сравнение расхода токенов](challenges/day-09-context-compression/README.md)
+- [День 10 — Sliding Window, Facts и ветки диалога](challenges/day-10-context-strategies/README.md)
 
 ## Справочные материалы
 

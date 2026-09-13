@@ -5,6 +5,7 @@
 
 # Node.js and generated site files
 node_modules/
+.npm-cache/
 .next/
 .vinext/
 dist/
@@ -34,3 +35,7 @@ challenges/day-09-context-compression/context.json
 challenges/day-09-context-compression/full-history.json
 challenges/day-09-context-compression/*.history.json
 challenges/day-09-context-compression/*.json.*.tmp
+challenges/day-10-context-strategies/context.json
+challenges/day-10-context-strategies/*.history.json
+challenges/day-10-context-strategies/*.json.*.tmp
+challenges/day-10-context-strategies/results/offline-*/
