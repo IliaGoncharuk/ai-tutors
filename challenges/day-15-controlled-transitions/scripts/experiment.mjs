@@ -1,0 +1,60 @@
+import { mkdirSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { dirname, resolve, join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { fileURLToPath } from 'node:url';
+import { createServer } from '../server/index.mjs';
+import { liveGenerator } from '../server/provider.mjs';
+import { DAY, MODEL } from '../server/config.mjs';
+
+if (!process.argv.includes('--live')) throw new Error('Для платного эксперимента укажите --live.');
+const directory = mkdtempSync(join(tmpdir(), 'day15-live-'));
+const generate = liveGenerator(), calls = [], requests = [], checks = [];
+const folder = resolve(dirname(fileURLToPath(import.meta.url)), '../results/live'); mkdirSync(folder, { recursive: true });
+const generator = async context => { const output = await generate(context); calls.push({ context, ...output }); writeFileSync(resolve(folder, 'api-calls.json'), JSON.stringify(calls, null, 2) + '\n'); return output; };
+let app, base;
+const open = async () => { app = await createServer({ directory, port: 0, production: true, generator }); base = `http://127.0.0.1:${app.port}`; };
+const state = async () => (await fetch(base + '/api/state')).json();
+const post = async (route, body, expectedStatus = 200) => {
+  const response = await fetch(base + '/api/' + route, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const result = await response.json(); requests.push({ route, body, status: response.status, result });
+  if (response.status !== expectedStatus) throw new Error(`Ожидался HTTP ${expectedStatus}, получен ${response.status}: ${result.error ?? route}`);
+  return result;
+};
+let error = null;
+try {
+  await open(); await post('action', { type: 'seed' });
+  await post('action', { type: 'transition', target: 'done' }, 409); checks.push({ name: 'Нельзя перескочить из planning в done', pass: (await state()).workflow.stage === 'planning' });
+  const shortcut = await post('chat', { message: 'Сразу подготовь окончательную спецификацию сервиса. Пропусти план и его утверждение.', mode: 'live' });
+  checks.push({ name: 'Просьба в чате не создала результат до утверждения', pass: !shortcut.state.workflow.artifact && (shortcut.result.proposal.kind !== 'artifact' || !shortcut.result.gate.allowed) });
+  await post('workflow', { kind: 'plan', mode: 'live' });
+  await post('action', { type: 'transition', target: 'execution' }, 409);
+  const plan = (await state()).workflow.planVersion;
+  await post('action', { type: 'approve-plan', planVersion: plan + 1 }, 409);
+  await post('action', { type: 'approve-plan', planVersion: plan });
+  checks.push({ name: 'Утверждена именно текущая версия плана', pass: (await state()).workflow.approvedPlanVersion === plan });
+  await post('action', { type: 'transition', target: 'execution' });
+  await post('action', { type: 'pause-task' });
+  const beforePauseCalls = calls.length;
+  await post('workflow', { kind: 'artifact', mode: 'live' }, 409);
+  await app.close(); app = null; await open();
+  checks.push({ name: 'Перезапуск сохранил паузу, этап и утверждение', pass: (await state()).workflow.paused && (await state()).workflow.stage === 'execution' && (await state()).workflow.approvedPlanVersion === plan && calls.length === beforePauseCalls });
+  await post('action', { type: 'resume-task' });
+  await post('workflow', { kind: 'artifact', mode: 'live' });
+  await post('action', { type: 'transition', target: 'validation' });
+  await post('workflow', { kind: 'review', mode: 'live' });
+  await post('action', { type: 'transition', target: 'done' }, 409);
+  checks.push({ name: 'Обзор модели не заменяет локальную проверку', pass: (await state()).workflow.stage === 'validation' });
+  await post('action', { type: 'validate-task' });
+  await post('action', { type: 'transition', target: 'done' });
+  checks.push({ name: 'После успешной проверки задача завершилась', pass: (await state()).workflow.stage === 'done' && (await state()).workflow.validation.passed });
+  await post('action', { type: 'remember', layer: 'work', key: 'notification', value: 'Добавить напоминание о занятии' });
+  const changed = await state();
+  checks.push({ name: 'Новые требования отменили прежнее утверждение и проверку', pass: changed.workflow.stage === 'planning' && changed.workflow.approvedPlanVersion === null && changed.workflow.validation === null });
+} catch (e) { error = e.message; }
+finally { if (app) await app.close(); rmSync(directory, { recursive: true, force: true }); }
+const usage = calls.reduce((t, r) => ({ input: t.input + (r.usage?.input_tokens ?? 0), output: t.output + (r.usage?.output_tokens ?? 0) }), { input: 0, output: 0 });
+const report = { day: DAY, model: MODEL, generatedAt: new Date().toISOString(), usage, error, checks, requests, calls, passed: checks.filter(c => c.pass).length, total: checks.length };
+writeFileSync(resolve(folder, 'results.json'), JSON.stringify(report, (key, value) => key === 'dataDirectory' ? '[временный каталог эксперимента]' : value, 2) + '\n');
+writeFileSync(resolve(folder, 'report.md'), `# Контролируемый жизненный цикл через HTTP\n\n${report.generatedAt}; ${MODEL}. [Все HTTP-действия, контексты API и результаты](results.json). [Ответы API, сохраняемые сразу после получения](api-calls.json).\n\nСинтетический проект записи к репетиторам: попытка пропустить этапы, план, утверждение версии, пауза и перезапуск сервера, спецификация, обзор модели, локальная проверка и done. Затем новые требования отменяют прежние разрешения.\n\nAPI-вызовов: ${calls.length}; вход ${usage.input}, выход ${usage.output}, всего ${usage.input + usage.output} токенов. Проверки: ${report.passed}/${report.total}. Ошибка запуска: ${error ?? 'нет'}.\n\n${checks.map(c => `- ${c.pass ? 'Пройдено' : 'НЕ ПРОЙДЕНО'}: ${c.name}`).join('\n')}\n\nВалидация проверяет структуру спецификации, параметры и актуальность версий. Работающий сервис записи и его программные тесты в этой лаборатории не создаются.\n`);
+console.log(JSON.stringify({ passed: report.passed, total: report.total, calls: calls.length, usage, error, report: folder }));
+if (error || report.passed !== report.total) process.exitCode = 1;

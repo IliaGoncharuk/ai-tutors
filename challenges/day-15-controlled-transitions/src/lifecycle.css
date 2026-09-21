@@ -1,0 +1,98 @@
+.next-gate-reason { display: flex; align-items: flex-start; gap: 7px; font-size: 10px; color: #a28e62; line-height: 1.8; margin-top: 12px; padding: 9px 12px; border: 1px solid #ebe1c9; background: #fbf8ee; border-radius: 6px; }
+.next-gate-reason > span { flex: none; font-size: 14px; line-height: 1.3; }
+.lifecycle-panel { margin-top: 20px; padding-top: 18px; border-top: 1px solid #e4edd9; }
+.lifecycle-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.lifecycle-heading h3 { font-size: 12px; font-weight: 550; color: #719157; margin: 0; }
+.lifecycle-heading > span { font-size: 8px; color: #a6b991; }
+.lifecycle-checkpoints { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.lifecycle-checkpoints article { display: flex; align-items: flex-start; gap: 8px; padding: 14px 12px; border: 1px solid #e3ebd8; border-radius: 8px; background: #fff; min-width: 0; }
+.checkpoint-icon { flex: none; display: grid; place-items: center; width: 25px; height: 25px; color: #a6b894; border: 1px solid #e0e9d4; border-radius: 7px; background: #f8fbf2; font-size: 8px; }
+.checkpoint-ready .checkpoint-icon { color: #749d55; border-color: #cddfbb; background: #edf6e3; font-size: 13px; }
+.lifecycle-checkpoints article > div { min-width: 0; }
+.lifecycle-checkpoints h4 { font-size: 10px; color: #829d68; font-weight: 550; margin: 3px 0 7px; line-height: 1.6; }
+.lifecycle-checkpoints p { font-size: 9px; line-height: 1.85; color: #a0b28a; overflow-wrap: anywhere; }
+.lifecycle-checkpoints .button { margin-top: 10px; padding: 7px 8px; font-size: 8px; min-height: 29px; white-space: normal; text-align: center; }
+.checkpoint-detail { display: block; font-size: 8px; line-height: 1.7; color: #b1bf9e; margin-top: 7px; }
+.lifecycle-note { font-size: 9px; line-height: 1.8; color: #a1b38b; margin-top: 11px; }
+.validation-report { border: 1px solid #dce9ce; background: #f7fbf1; padding: 15px 16px; border-radius: 8px; margin-top: 16px; }
+.validation-report.validation-failed { background: #fcf9ef; border-color: #eadebf; }
+.validation-report > div:first-child { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+.validation-report h4 { font-size: 12px; color: #7f9c61; font-weight: 550; margin: 0; }
+.validation-failed h4 { color: #ad965f; }
+.validation-report > div:first-child > span { font-size: 8px; color: #a8b995; line-height: 1.8; }
+.validation-report ul { display: flex; flex-direction: column; gap: 11px; list-style: none; padding: 14px 0 0; margin: 0; }
+.validation-report li { display: flex; gap: 9px; align-items: flex-start; }
+.validation-mark { flex: none; display: grid; place-items: center; height: 18px; width: 18px; border-radius: 50%; color: #8bae6d; background: #eaf4df; font-size: 11px; margin-top: 1px; }
+.check-failed .validation-mark { color: #bc9d65; background: #f4ead5; }
+.validation-report li strong { display: block; font-size: 10px; color: #8aa672; font-weight: 550; line-height: 1.6; }
+.validation-report .check-failed strong { color: #b39a65; }
+.validation-report li p { font-size: 9px; line-height: 1.8; color: #a4b993; margin-top: 3px; overflow-wrap: anywhere; }
+.validation-report .check-failed p { color: #b6a47e; }
+.validation-scope { font-size: 8px; line-height: 1.8; color: #b0bf9c; margin-top: 13px; border-top: 1px solid #e5eedb; padding-top: 10px; }
+.revise-plan-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; }
+.revise-plan-row p { font-size: 9px; line-height: 1.8; color: #a2b68b; }
+.revise-plan-row .button { font-size: 9px; padding: 8px 10px; min-height: 31px; color: #8fa773; }
+.transition-probe { background: #f7faf1; border: 1px dashed #d6e3c6; border-radius: 8px; padding: 15px 16px; }
+.transition-probe .eyebrow { font-size: 7px; letter-spacing: 1.1px; color: #91ae74; }
+.transition-probe h4 { font-size: 12px; color: #7e9c61; font-weight: 550; margin: 4px 0 5px; }
+.transition-probe > div:first-child > p { font-size: 9px; line-height: 1.8; color: #a5b792; }
+.transition-probe form { display: flex; align-items: flex-end; gap: 10px; margin-top: 13px; }
+.transition-probe label { font-size: 9px; color: #9bb084; flex: 1; }
+.transition-probe select { display: block; margin-top: 6px; border-color: #dce7cd; color: #849d69; font-size: 10px; padding: 8px 10px; }
+.transition-probe .button { font-size: 9px; min-height: 33px; }
+.transition-probe > p { font-size: 9px; line-height: 1.8; margin-top: 10px; }
+.probe-allowed { color: #83a767; }
+.probe-blocked { color: #aa986e; }
+.transition-error { font-size: 10px; color: #b58768; line-height: 1.85; background: #fff3e9; border: 1px solid #efdbc9; border-radius: 6px; padding: 10px 12px; margin-top: 11px; }
+.transition-error strong { font-weight: 550; }
+.invariants-fold { border: 1px solid #e0e8d8; border-radius: 9px; background: #fff; margin-bottom: 22px; overflow: hidden; }
+.invariants-fold > summary { display: flex; align-items: center; gap: 11px; padding: 15px 18px; list-style: none; color: #899f70; font-size: 11px; }
+.invariants-fold > summary:after { content: '⌄'; font-size: 16px; color: #a7bb93; margin-left: auto; }
+.invariants-fold[open] > summary:after { transform: rotate(180deg); }
+.invariants-fold > summary strong { color: #809e62; font-weight: 450; font-size: 9px; padding: 5px 7px; background: #f1f6e9; border-radius: 4px; }
+.invariants-fold > summary small { font-size: 8px; color: #abb99a; }
+.invariants-fold > .invariants-panel { margin-bottom: 0; border: 0; border-radius: 0; border-top: 1px solid #e7eedd; }
+.chat-gate-notice strong { font-weight: 550; }
+@media(max-width: 1200px) {
+  .lifecycle-checkpoints { gap: 8px; }
+  .lifecycle-checkpoints article { padding: 12px 10px; gap: 7px; }
+  .checkpoint-icon { width: 21px; height: 21px; font-size: 7px; }
+  .lifecycle-checkpoints h4 { font-size: 9px; }
+  .lifecycle-checkpoints p { font-size: 8px; }
+  .lifecycle-checkpoints .button { font-size: 7px; padding: 7px; }
+}
+@media(max-width: 740px) {
+  .lifecycle-checkpoints { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .lifecycle-checkpoints article { padding: 12px; gap: 10px; }
+  .checkpoint-icon { width: 26px; height: 26px; font-size: 8px; }
+  .lifecycle-checkpoints h4 { font-size: 11px; margin-bottom: 4px; }
+  .lifecycle-checkpoints p { font-size: 10px; }
+  .lifecycle-checkpoints .button { font-size: 9px; }
+  .checkpoint-detail { font-size: 8px; }
+  .lifecycle-heading h3 { font-size: 11px; }
+  .lifecycle-heading > span { font-size: 7px; }
+  .lifecycle-note { font-size: 9px; }
+  .next-gate-reason { font-size: 9px; }
+  .validation-report { padding: 13px; }
+  .validation-report h4 { font-size: 11px; }
+  .revise-plan-row { flex-wrap: wrap; gap: 5px; }
+  .revise-plan-row .button { margin-left: auto; }
+  .transition-probe { padding: 13px; }
+  .transition-probe form { gap: 8px; }
+  .transition-probe .button { font-size: 8px; padding: 8px 10px; }
+  .transition-probe select { font-size: 9px; }
+  .invariants-fold { margin-bottom: 16px; }
+  .invariants-fold > summary { padding: 13px 14px; font-size: 10px; gap: 8px; }
+  .invariants-fold > summary strong { font-size: 8px; }
+  .invariants-fold > summary small { display: none; }
+}
+@media(max-width: 500px) {
+  .lifecycle-heading { flex-wrap: wrap; gap: 5px; }
+  .transition-probe form { flex-wrap: wrap; }
+  .transition-probe label { flex-basis: 100%; }
+  .transition-probe .button { margin-left: auto; font-size: 9px; }
+  .invariants-fold > summary { font-size: 9px; gap: 5px; }
+  .invariants-fold > summary strong { font-size: 7px; padding: 4px 5px; }
+  .validation-report > div:first-child > span { font-size: 7px; }
+  .transition-error { font-size: 9px; }
+}

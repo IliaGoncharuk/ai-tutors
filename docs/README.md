@@ -28,6 +28,16 @@
 | [decisions/0008-day-09-cli-context-compression.md](decisions/0008-day-09-cli-context-compression.md) | Отдельный CLI Дня 9 с атомарной памятью и учётом затрат на summary. |
 | [features/day-10-context-strategies.md](features/day-10-context-strategies.md) | Sliding Window, Facts, checkpoints, независимые ветки и сравнение на одном сценарии. |
 | [decisions/0009-day-10-context-strategies.md](decisions/0009-day-10-context-strategies.md) | CLI Дня 10, переключение режимов и реальный эксперимент с раскрытыми исходными данными. |
+| [features/day-11-memory-layers.md](features/day-11-memory-layers.md) | Локальный сайт с тремя слоями памяти, ручным сохранением, изоляцией задач и сравнением ответов. |
+| [decisions/0010-day-11-memory-layers.md](decisions/0010-day-11-memory-layers.md) | Самостоятельный сайт Дня 11 вместо CLI, явная запись памяти и публикация согласованных снимков. |
+| [features/day-12-personalization.md](features/day-12-personalization.md) | Редактируемые профили, их автоматическое применение, изоляция памяти и сравнение ответов. |
+| [decisions/0011-day-12-personalization.md](decisions/0011-day-12-personalization.md) | Явная персонализация отдельного сайта и сравнение профилей на одинаковых фактах. |
+| [features/day-13-task-state.md](features/day-13-task-state.md) | Этап, шаг, ожидаемое действие, материалы задачи, пауза и восстановление. |
+| [decisions/0012-day-13-task-state.md](decisions/0012-day-13-task-state.md) | Отдельная сохраняемая карточка задачи и пауза без потери текущего этапа. |
+| [features/day-14-invariants.md](features/day-14-invariants.md) | Отдельные обязательные правила, проверка предложений и объяснение конфликтов. |
+| [decisions/0013-day-14-invariants.md](decisions/0013-day-14-invariants.md) | Проверка шести полей кодом и формирование ответа из допустимых данных. |
+| [features/day-15-controlled-transitions.md](features/day-15-controlled-transitions.md) | Серверные условия переходов, принятие версий плана и локальная валидация результата. |
+| [decisions/0014-day-15-controlled-transitions.md](decisions/0014-day-15-controlled-transitions.md) | Подтверждения, связанные с версиями требований, плана и спецификации. |
 
 ## Как определить канонический файл
 

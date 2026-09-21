@@ -1,0 +1,119 @@
+.sidebar { overflow-y: auto; }
+.invariants-panel { padding: 24px; margin-bottom: 22px; border-color: #cfded4; background: linear-gradient(125deg, #fff 40%, #f8faf3); }
+.invariants-heading { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
+.invariants-heading .eyebrow { font-size: 8px; letter-spacing: 1.2px; }
+.invariants-heading h2 { font-size: 22px; font-weight: 550; letter-spacing: -.65px; color: #305640; margin-top: 5px; }
+.invariants-heading p { font-size: 11px; color: #809677; margin-top: 9px; line-height: 1.7; }
+.invariants-version { display: flex; align-items: center; gap: 6px; color: #8ba577; background: #f0f6e8; border: 1px solid #dce9cf; border-radius: 6px; padding: 7px 9px; white-space: nowrap; font-size: 9px; }
+.invariants-version > span { font-size: 15px; }
+.invariant-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.invariant-card { background: #fff; border: 1px solid #e1e9d9; border-radius: 9px; padding: 15px 17px; }
+.invariant-card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.invariant-card-top span { font-size: 8px; color: #a2b18f; line-height: 1.6; }
+.invariant-card-top b { font-family: Georgia, serif; font-style: italic; font-weight: 400; color: #d1dec3; font-size: 17px; }
+.invariant-card h3 { margin-top: 9px; font-size: 10px; color: #8ca077; font-weight: 450; line-height: 1.5; }
+.invariant-card > strong { display: block; margin-top: 6px; font-size: 21px; font-weight: 550; color: #648449; letter-spacing: -.5px; }
+.invariant-card strong small { font-size: 10px; font-weight: 400; margin-left: 5px; color: #9aae86; letter-spacing: 0; }
+.invariants-explanation { color: #8d9f7b; font-size: 10px; line-height: 1.85; margin-top: 14px; }
+.invariants-checker { padding: 18px 0; margin-top: 17px; border-top: 1px solid #e4ecda; border-bottom: 1px solid #e4ecda; }
+.invariants-checker .eyebrow { font-size: 7px; letter-spacing: 1.1px; }
+.invariants-checker h3 { font-size: 13px; font-weight: 550; color: #6e8b53; margin-top: 4px; }
+.invariants-checker p { font-size: 9px; line-height: 1.7; color: #a1b08c; margin-top: 5px; }
+.invariants-checker form { display: grid; grid-template-columns: 1fr 1fr auto; align-items: end; gap: 12px; margin-top: 14px; }
+.invariants-checker label { font-size: 9px; color: #94a77c; line-height: 1.6; }
+.invariants-checker input, .invariants-checker select { margin-top: 6px; font-size: 11px; padding: 9px 10px; border-color: #dfe8d3; color: #708d52; min-height: 36px; }
+.invariants-checker .button { font-size: 10px; min-height: 37px; }
+.policy-result { border-radius: 8px; padding: 16px; margin-top: 18px; border: 1px solid #dce9ce; background: #f4f9ed; }
+.policy-refused { border-color: #e9dcc3; background: #fcf8ed; }
+.policy-result-heading { display: flex; align-items: flex-start; gap: 10px; }
+.policy-symbol { flex: none; width: 29px; height: 29px; display: grid; place-items: center; color: #7ca05d; border: 1px solid #d5e5c3; background: #ebf3e0; border-radius: 8px; font-size: 14px; }
+.policy-refused .policy-symbol { color: #b69855; border-color: #e9dab7; background: #f7efd9; }
+.policy-result-heading h3 { font-size: 12px; color: #789356; font-weight: 550; line-height: 1.6; }
+.policy-refused h3 { color: #a38c56; }
+.policy-result-heading p { font-size: 9px; line-height: 1.7; color: #a2b08a; margin-top: 3px; }
+.policy-refused .policy-result-heading p { color: #b2a37f; }
+.policy-violations { padding: 0; margin: 13px 0 0 39px; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.policy-violations li { font-size: 10px; line-height: 1.75; color: #aa9771; overflow-wrap: anywhere; }
+.policy-violations li strong { display: block; font-size: 10px; color: #9a8354; font-weight: 550; }
+.policy-violations li b { font-weight: 500; color: #9e865b; }
+.policy-answer { border-top: 1px solid #e2ebd4; margin: 14px 0 0 39px; padding-top: 12px; }
+.policy-refused .policy-answer { border-color: #eee2cc; }
+.policy-answer > span { font-size: 8px; color: #a1b18a; display: block; margin-bottom: 7px; }
+.policy-refused .policy-answer > span { color: #b5a47d; }
+.policy-answer p { color: #829c62; font-size: 11px; line-height: 1.85; white-space: pre-wrap; overflow-wrap: anywhere; }
+.policy-refused .policy-answer p { color: #9b8864; }
+.invariants-examples { margin-top: 19px; }
+.invariants-examples > div:first-child { display: flex; gap: 9px; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+.invariants-examples h3 { font-size: 11px; font-weight: 550; color: #7e985f; }
+.invariants-examples > div:first-child span { font-size: 8px; color: #a9b795; }
+.invariants-examples > div:last-child { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+.invariants-examples button { background: #fff; border: 1px solid #e2ead7; border-radius: 7px; padding: 11px 12px; text-align: left; position: relative; }
+.invariants-examples button:hover:not(:disabled) { background: #f7faf0; border-color: #cadbb7; }
+.invariants-examples button > span { display: block; font-size: 7px; margin-bottom: 7px; }
+.invariants-examples button > .example-conflict { color: #b59c72; }
+.invariants-examples button > .example-valid { color: #90ab6f; }
+.invariants-examples button strong { display: block; padding-right: 11px; color: #8ca572; font-size: 10px; line-height: 1.7; font-weight: 450; }
+.invariants-examples button b { position: absolute; right: 10px; bottom: 12px; color: #adbfa0; font-size: 12px; font-weight: 400; }
+.invariants-scope { margin-top: 12px; color: #b0bf9c; font-size: 8px; line-height: 1.8; }
+.workflow-fold { border: 1px solid #dfe8d7; border-radius: 10px; background: white; margin-bottom: 22px; overflow: hidden; }
+.workflow-fold > summary { display: flex; align-items: center; gap: 11px; padding: 15px 18px; list-style: none; color: #819d64; font-size: 11px; }
+.workflow-fold > summary:after { content: '⌄'; font-size: 16px; color: #a6bb8f; margin-left: auto; }
+.workflow-fold[open] > summary:after { transform: rotate(180deg); }
+.workflow-fold > summary strong { color: #729750; font-weight: 450; font-size: 10px; padding: 4px 7px; background: #eef5e5; border-radius: 4px; }
+.workflow-fold > summary small { font-size: 9px; color: #a6b991; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 45%; }
+.workflow-fold > .workflow-panel { margin-bottom: 0; border: 0; border-radius: 0; border-top: 1px solid #e4ecda; }
+.workflow-material-body > textarea:read-only { background: #fafcf5; }
+@media(max-width: 1200px) {
+  .invariants-panel { padding: 20px; }
+  .invariants-heading h2 { font-size: 20px; }
+  .invariant-card { padding: 13px 14px; }
+  .invariant-card > strong { font-size: 19px; }
+  .invariants-checker form { gap: 10px; }
+  .invariants-checker .button { font-size: 9px; padding: 10px; }
+  .invariants-examples button strong { font-size: 9px; }
+}
+@media(max-width: 740px) {
+  .invariants-panel { padding: 17px; margin-bottom: 16px; }
+  .invariants-heading { flex-wrap: wrap; gap: 11px; margin-bottom: 15px; }
+  .invariants-heading h2 { font-size: 18px; }
+  .invariants-heading p { font-size: 10px; }
+  .invariants-heading .eyebrow { font-size: 7px; letter-spacing: .9px; }
+  .invariants-version { font-size: 8px; padding: 5px 7px; }
+  .invariant-grid { gap: 8px; }
+  .invariant-card { padding: 10px; }
+  .invariant-card-top span { font-size: 7px; }
+  .invariant-card-top b { font-size: 13px; }
+  .invariant-card h3 { font-size: 8px; min-height: 25px; margin-top: 7px; }
+  .invariant-card > strong { font-size: 16px; }
+  .invariant-card strong small { font-size: 8px; }
+  .invariants-explanation { font-size: 9px; }
+  .invariants-checker form { grid-template-columns: 1fr 1fr; }
+  .invariants-checker .button { grid-column: 1/-1; justify-self: end; }
+  .invariants-checker label { font-size: 9px; }
+  .invariants-checker select, .invariants-checker input { font-size: 10px; }
+  .invariants-examples > div:first-child { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .invariants-examples > div:last-child { grid-template-columns: minmax(0, 1fr); }
+  .invariants-examples button { padding: 10px 11px; }
+  .invariants-examples button strong { font-size: 10px; }
+  .policy-result { padding: 13px; }
+  .policy-result-heading h3 { font-size: 11px; }
+  .policy-result-heading p { font-size: 8px; }
+  .policy-violations, .policy-answer { margin-left: 0; }
+  .policy-answer p { font-size: 10px; }
+  .workflow-fold { margin-bottom: 16px; }
+  .workflow-fold > summary { padding: 13px 14px; font-size: 10px; gap: 8px; }
+  .workflow-fold > summary strong { font-size: 9px; }
+  .workflow-fold > summary small { display: none; }
+}
+@media(max-width: 500px) {
+  .invariants-panel { padding: 13px; }
+  .invariants-heading h2 { font-size: 17px; line-height: 1.4; }
+  .invariant-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .invariant-card h3 { font-size: 9px; min-height: 14px; }
+  .invariant-card > strong { font-size: 18px; }
+  .invariants-checker h3 { font-size: 12px; }
+  .invariants-checker form { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .invariants-checker .button { justify-self: stretch; font-size: 10px; }
+  .workflow-fold > summary { font-size: 9px; gap: 6px; }
+  .workflow-fold > summary strong { font-size: 8px; }
+}
