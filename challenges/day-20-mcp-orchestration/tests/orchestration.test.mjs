@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {mkdtempSync,rmSync} from 'node:fs';import {tmpdir} from 'node:os';import {join} from 'node:path';
+import {demoIssues} from '../server/domain.mjs';
 import {Connections} from '../server/connections.mjs';import {orchestrate} from '../server/orchestrator.mjs';import {Budget} from '../server/budget.mjs';import {Store} from '../server/store.mjs';
 const temp=()=>mkdtempSync(join(tmpdir(),'orchestration-test-'));
 const response=(name,args={},id='call')=>({status:'completed',output:[{type:'function_call',name,arguments:JSON.stringify(args),call_id:id}],usage:{input_tokens:1,output_tokens:1}});
@@ -13,10 +14,11 @@ test('two real processes: long flow, previous-report comparison and single-serve
 });
 test('model selects aliases; host supplies private references; upstream payloads contain numbers only',async()=>{
  const directory=temp(),connections=new Connections('demo',directory),payloads=[];try{
- await connections.connect();const replies=[response('data__search_issues',{period:'all'},'c1'),response('analytics__summarize_issues',{},'c2'),response('analytics__compare_previous',{},'c3'),response('analytics__save_report',{},'c4'),{status:'completed',output:[],output_text:'Сводка сохранена. Просрочено 2 задачи.'}];
+ await connections.connect();const replies=[response('data__search_issues',{period:'all'},'c1'),response('analytics__summarize_issues',{},'c2'),response('analytics__compare_previous',{},'c3'),response('analytics__save_report',{},'c4'),{status:'completed',usage:{input_tokens:1,output_tokens:1},output:[],output_text:'Сводка сохранена. Просрочено 2 задачи.'}];
  const run=await orchestrate({request:'report',mode:'live',connections,budget:new Budget(new Store(directory)),responder:async()=>replies.shift(),onPayload:p=>payloads.push(p)});
- assert.equal(run.status,'completed');assert.equal(payloads.length,5);const serialized=JSON.stringify(payloads);
- for(const issue of run.result.issues){assert.equal(serialized.includes(issue.key),false);assert.equal(serialized.includes(issue.summary),false);}
+ assert.equal(run.status,'completed');assert.equal(payloads.length,5);
+ assert.equal(new Budget(new Store(directory)).view().reservedUsd,0); assert.equal(new Budget(new Store(directory)).view().requests,5);const serialized=JSON.stringify(payloads);
+ for(const issue of demoIssues()){assert.equal(serialized.includes(issue.key),false);assert.equal(serialized.includes(issue.summary),false);}
  assert.equal(serialized.includes(run.result.snapshotId),false);assert.equal(serialized.includes(run.result.summaryId),false);
  for(const payload of payloads)for(const item of payload.input.filter(i=>i.type==='function_call_output'))assert.ok(Object.values(JSON.parse(item.output)).every(v=>typeof v==='number'));
  assert.match(run.steps[1].input.snapshotId,/^[0-9a-f-]{36}$/);

@@ -1,4 +1,3 @@
-import OpenAI from 'openai';
 import { randomUUID } from 'node:crypto';
 import { PublicError } from './domain.mjs';
 
@@ -65,13 +64,4 @@ export class Budget {
     this.store.write('budget.json', value);
     return true;
   }
-}
-
-export function openaiResponder(apiKey = process.env.OPENAI_API_KEY) {
-  if (!apiKey) throw new PublicError('В окружении сервера нет OPENAI_API_KEY.');
-  const client = new OpenAI({ apiKey, maxRetries: 0, timeout: 45000 });
-  return async payload => {
-    try { return await client.responses.create(payload); }
-    catch { throw new PublicError('OpenAI не ответил. Повторный запрос автоматически не выполнялся.'); }
-  };
 }

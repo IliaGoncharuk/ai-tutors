@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { MODEL } from './config.mjs';
 import { PublicError, numericMetrics } from './domain.mjs';
+export { Budget } from './budget.mjs';
 
 export const requests = {
   all: 'Покажи общую сводку моих незавершённых задач.',
@@ -14,15 +15,6 @@ export function openaiResponder(apiKey = process.env.OPENAI_API_KEY) {
     try { return await client.responses.create(payload); }
     catch { throw new PublicError('OpenAI не ответил. Проверьте доступ к API; повторный запрос автоматически не выполнялся.'); }
   };
-}
-// Each attempt reserves a conservative $0.05 before network I/O. A failed or
-// interrupted request retains its reservation. Five days share the validation
-// budget by assigning the same budget Store in scripts/verify-live.mjs.
-export class Budget {
-  constructor(store, limit = 1) { this.store = store; this.limit = limit; }
-  view() { return this.store.read('budget.json', { reservedUsd: 0, estimatedUsd: 0, requests: 0, inputTokens: 0, outputTokens: 0 }); }
-  reserve() { const value = this.view(); if (value.reservedUsd + .05 > this.limit + 1e-9) throw new PublicError('Лимит расходов достигнут. Новый запрос к модели не отправлен.'); value.reservedUsd = Math.round((value.reservedUsd + .05) * 100) / 100; value.requests++; this.store.write('budget.json', value); }
-  finish(usage = {}) { const value = this.view(); value.inputTokens += usage.input_tokens ?? 0; value.outputTokens += usage.output_tokens ?? 0; value.estimatedUsd += ((usage.input_tokens ?? 0) * .25 + (usage.output_tokens ?? 0) * 1.2) / 1e6; this.store.write('budget.json', value); }
 }
 const instructions = 'Ты помощник по срокам задач. Используй инструменты для получения фактов. Отвечай кратко по-русски, опираясь только на полученные числовые показатели. Не придумывай названия, причины просрочки, людей и приоритеты. total — количество выбранных задач; overdue — просроченные; today — срок сегодня; upcoming — будущие сроки; noDeadline — без срока; invalidDeadline — некорректная дата; maxOverdueDays — максимальная просрочка в днях. Если данных нет, прямо скажи это.';
 
@@ -43,8 +35,8 @@ export async function runAgent({ request, mode, connection, budget, responder, o
   for (let step = 0; step < 4; step++) {
     const payload = { model: MODEL, instructions, input, tools, parallel_tool_calls: false, store: false, reasoning: { effort: 'none' }, max_output_tokens: 700, tool_choice: result ? 'none' : 'required' };
     if (JSON.stringify(payload).length > 18000) throw new PublicError('Превышен размер контекста агента.');
-    onPayload(structuredClone(payload)); budget.reserve();
-    const response = await respond(payload); budget.finish(response.usage);
+    onPayload(structuredClone(payload)); const reservation = budget.reserve();
+    const response = await respond(payload); budget.finish(reservation, response.usage);
     if (response.status !== 'completed') throw new PublicError('Модель вернула неполный ответ.');
     const calls = response.output?.filter(item => item.type === 'function_call') ?? [];
     if (!calls.length) {

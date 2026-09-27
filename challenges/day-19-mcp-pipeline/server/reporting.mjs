@@ -1,11 +1,11 @@
 import {randomUUID} from 'node:crypto';
 import {searchIssues} from './tracker.mjs';
-import {analyze,PublicError,numericMetrics} from './domain.mjs';
+import {analyze,PublicError,numericMetrics,anonymizeResult} from './domain.mjs';
 
 const idPattern=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 export function readArtifact(store,prefix,id){
  if(!idPattern.test(id))throw new PublicError('Неверный идентификатор результата.');
- const value=store.read(`${prefix}-${id}.json`);if(!value)throw new PublicError('Результат предыдущего шага не найден.');return value;
+ const value=store.read(`${prefix}-${id}.json`);if(!value)throw new PublicError('Результат предыдущего шага не найден.');return anonymizeResult(value);
 }
 export async function collectSnapshot(store,source,period='all'){
  const result=await searchIssues({source,period});
@@ -21,8 +21,9 @@ export function summarizeSnapshot(store,snapshotId){
 }
 const escape=text=>String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('|','\\|').replace(/[\r\n]+/g,' ');
 export function reportMarkdown(summary){
+ summary=anonymizeResult(summary);
  const m=numericMetrics(summary.metrics);
- return [`# Сводка задач · ${summary.date}`,'',`Источник: ${summary.source==='live'?'Яндекс Трекер':'вымышленные учебные данные'}. Только назначенные мне незавершённые задачи.`,`Снимок получен: ${summary.collectedAt}. Часовой пояс: Asia/Yekaterinburg.`,'',`Всего: ${m.total}. Просрочено: ${m.overdue}. Срок сегодня: ${m.today}. Будущие: ${m.upcoming}. Без срока: ${m.noDeadline}. Неверная дата: ${m.invalidDeadline}. Максимальная просрочка: ${m.maxOverdueDays} дн.`,'','| Задача | Название | Срок | Категория |','| --- | --- | --- |',...summary.issues.map(i=>`| ${escape(i.key)} | ${escape(i.summary)} | ${escape(i.dueDate??'не задан')} | ${escape(i.bucket)} |`),'','Сводка отражает время сбора. Отсутствие резолюции используется как признак незавершённой задачи.',''].join('\n');
+ return [`# Сводка задач · ${summary.date}`,'',`Источник: ${summary.source==='live'?'Яндекс Трекер':'вымышленные учебные данные'}. Только назначенные мне незавершённые задачи.`,`Снимок получен: ${summary.collectedAt}. Часовой пояс: Asia/Yekaterinburg.`,'',`Всего: ${m.total}. Просрочено: ${m.overdue}. Срок сегодня: ${m.today}. Будущие: ${m.upcoming}. Без срока: ${m.noDeadline}. Неверная дата: ${m.invalidDeadline}. Максимальная просрочка: ${m.maxOverdueDays} дн.`,'','| Задача | Срок | Категория |','| --- | --- | --- |',...summary.issues.map(i=>`| ${escape(i.label)} | ${escape(i.dueDate??'не задан')} | ${escape(i.bucket)} |`),'','Сводка отражает время сбора. Отсутствие резолюции используется как признак незавершённой задачи.',''].join('\n');
 }
 export function saveReport(store,summaryId){
  const summary=readArtifact(store,'summary',summaryId);

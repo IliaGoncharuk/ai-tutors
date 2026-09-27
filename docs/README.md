@@ -44,6 +44,7 @@
 | [features/day-19-mcp-pipeline.md](features/day-19-mcp-pipeline.md) | Цепочка получения, расчёта и сохранения через MCP. |
 | [features/day-20-mcp-orchestration.md](features/day-20-mcp-orchestration.md) | Два MCP-сервера Трекера, выбор инструментов и маршрутизация. |
 | [decisions/0015-days-16-20-tracker-mcp.md](decisions/0015-days-16-20-tracker-mcp.md) | Пять самостоятельных сайтов, ручной запуск, только агрегаты для модели и учебное разделение серверов. |
+| [decisions/0016-tracker-anonymous-results.md](decisions/0016-tracker-anonymous-results.md) | Обезличенные строки задач, новые отчёты и чтение старых сохранений. |
 
 ## Как определить канонический файл
 

@@ -5,22 +5,24 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { runAgent, Budget } from '../server/agent.mjs';
 import { Store } from '../server/store.mjs';
+import { demoIssues } from '../server/domain.mjs';
 import { McpConnection } from '../server/mcp-client.mjs';
 import { createApp } from '../server/index.mjs';
 const temp = () => mkdtempSync(join(tmpdir(),'tracker-lab-test-'));
 
 test('real MCP tool result is consumed; OpenAI sees only allowlisted numbers', async () => {
-  const dir = temp(), connection = new McpConnection({env:{TRACKER_SOURCE:'demo'}}), payloads = [];
+  const dir = temp(), connection = new McpConnection({env:{TRACKER_SOURCE:'demo'}}), payloads = [], budget = new Budget(new Store(dir));
   try {
     await connection.connect();
     let n = 0;
-    const output = await runAgent({request:'overdue',mode:'live',connection,budget:new Budget(new Store(dir)),onPayload:p=>payloads.push(p),responder:async()=> ++n === 1 ? {status:'completed',usage:{input_tokens:10,output_tokens:5},output:[{type:'function_call',call_id:'test-call',name:'search_issues',arguments:'{"period":"overdue"}'}]} : {status:'completed',output:[],output_text:'Просрочено 2 задачи.'}});
+    const output = await runAgent({request:'overdue',mode:'live',connection,budget,onPayload:p=>payloads.push(p),responder:async()=> ++n === 1 ? {status:'completed',usage:{input_tokens:10,output_tokens:5},output:[{type:'function_call',call_id:'test-call',name:'search_issues',arguments:'{"period":"overdue"}'}]} : {status:'completed',usage:{input_tokens:20,output_tokens:10},output:[],output_text:'Просрочено 2 задачи.'}});
     assert.equal(output.result.metrics.total,2); assert.equal(payloads.length,2);
     const serialized = JSON.stringify(payloads);
-    for (const row of output.result.issues) { assert.equal(serialized.includes(row.key),false); assert.equal(serialized.includes(row.summary),false); }
+    for (const row of demoIssues()) { assert.equal(serialized.includes(row.key),false); assert.equal(serialized.includes(row.summary),false); }
     const modelData = JSON.parse(payloads[1].input.at(-1).output);
     assert.ok(Object.values(modelData).every(value=>typeof value==='number'));
     assert.equal(payloads[0].store,false);
+    assert.equal(budget.view().reservedUsd,0); assert.equal(budget.view().requests,2); assert.equal(budget.view().inputTokens,30);
   } finally {await connection.close();rmSync(dir,{recursive:true,force:true});}
 });
 test('wrong tool arguments rejected and failed requests retain budget reservation', async () => {

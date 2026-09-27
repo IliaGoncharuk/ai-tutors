@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { join } from 'node:path';
 import { Store } from './store.mjs';
 import { searchIssues } from './tracker.mjs';
-import { PublicError, localDate } from './domain.mjs';
+import { PublicError, localDate, anonymizeResult } from './domain.mjs';
 import { ZONE } from './config.mjs';
 
 export function localClock(now) {
@@ -40,7 +40,7 @@ export class Scheduler {
     const history=this.db.prepare('SELECT id,source,slot,trigger,status,started,finished,attempts,error FROM runs WHERE source=? ORDER BY started DESC, rowid DESC LIMIT 30').all(schedule.source);
     const row=this.db.prepare("SELECT result,finished FROM runs WHERE source=? AND status='completed' ORDER BY finished DESC LIMIT 1").get(schedule.source);
     const completedToday=Boolean(this.db.prepare("SELECT id FROM runs WHERE source=? AND slot=? AND status='completed'").get(schedule.source,localDate(this.now())));
-    return {schedule,nextRun:nextRun(schedule,this.now(),completedToday),running:this.running,history,latest:row?{...JSON.parse(row.result),finished:row.finished}:null};
+    return {schedule,nextRun:nextRun(schedule,this.now(),completedToday),running:this.running,history,latest:row?{...anonymizeResult(JSON.parse(row.result)),finished:row.finished}:null};
   }
   async run({trigger='manual',slot,source=this.settings().source}={}) {
     if(this.running) throw new PublicError('Сводка уже формируется.');
@@ -57,7 +57,7 @@ export class Scheduler {
     }catch(error){this.db.exec('ROLLBACK');throw error;}
     this.running=true;
     try {
-      const result=await this.collect({source,period:'all',date:localDate(now)});
+      const result=anonymizeResult(await this.collect({source,period:'all',date:localDate(now)}));
       this.db.prepare("UPDATE runs SET status='completed',finished=?,result=? WHERE id=?").run(this.now().toISOString(),JSON.stringify(result),id);
       return result;
     }catch(error){

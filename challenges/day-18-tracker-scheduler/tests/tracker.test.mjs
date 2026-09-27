@@ -16,7 +16,11 @@ test('Tracker uses me(), follows every page, discards unneeded private fields', 
   }});
   assert.equal(calls.length,2); assert.equal(result.metrics.today,2);
   assert.match(calls[0].init.body,/Assignee: me\(\)/); assert.equal(calls[0].init.redirect,'error');
-  assert.equal(JSON.stringify(result).includes('PRIVATE_DESCRIPTION'),false);
+  const serialized = JSON.stringify(result);
+  for (const value of ['PRIVATE_DESCRIPTION', 'DEMO-1', 'DEMO-2', 'Synthetic task']) assert.equal(serialized.includes(value),false);
+  assert.deepEqual(result.issues.map(issue=>issue.label),['Задача 1','Задача 2']);
+  assert.equal(new URL(calls[0].url).searchParams.get('fields').includes('summary'),false);
+  for (const issue of result.issues) for (const field of ['key','summary','url','description']) assert.equal(Object.hasOwn(issue,field),false);
 });
 test('incomplete pages, authorization and rate limit are explicit failures', async () => {
   const base = {source:'live',config:{token:'x',org:'x'}};

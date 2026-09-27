@@ -57,7 +57,7 @@ export async function orchestrate({request,mode,connections,budget,responder,onC
    for(let step=0;step<8;step++){
     const payload={model:MODEL,instructions,input,tools,parallel_tool_calls:false,store:false,reasoning:{effort:'none'},max_output_tokens:700,tool_choice:complete()?'none':'required'};
     if(JSON.stringify(payload).length>24000)throw new PublicError('Контекст агента превысил допустимый размер.');
-    onPayload(structuredClone(payload));budget.reserve();const response=await respond(payload);budget.finish(response.usage);
+    onPayload(structuredClone(payload));const reservation=budget.reserve();const response=await respond(payload);budget.finish(reservation,response.usage);
     if(response.status!=='completed')throw new PublicError('Модель вернула неполный ответ.');
     const calls=response.output?.filter(item=>item.type==='function_call')??[];
     if(!calls.length){if(!complete()||!response.output_text?.trim())throw new PublicError('Агент не завершил требуемые действия.');run.answer=response.output_text;break;}

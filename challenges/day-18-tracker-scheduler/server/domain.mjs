@@ -1,6 +1,22 @@
 import { ZONE } from './config.mjs';
 export class PublicError extends Error { constructor(message) { super(message); this.publicMessage = message; } }
 export const periods = ['all', 'overdue', 'today'];
+
+// Only these task fields may leave the data adapter or a legacy artifact reader.
+// Labels are positions within this result, never Tracker identifiers.
+export function anonymizeResult(result) {
+  return {
+    ...result,
+    issues: result.issues.map((issue, index) => ({
+      label: `Задача ${index + 1}`,
+      dueDate: issue.dueDate ?? null,
+      resolved: Boolean(issue.resolved),
+      status: issue.status ?? 'Не указан',
+      priority: issue.priority ?? 'Не указан',
+      ...(issue.bucket === undefined ? {} : { bucket: issue.bucket, daysOverdue: issue.daysOverdue }),
+    })),
+  };
+}
 export function localDate(now = new Date()) { return new Intl.DateTimeFormat('en-CA', { timeZone: ZONE, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now); }
 export function validDate(value) { return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value; }
 export function analyze(issues, date = localDate()) {
@@ -15,7 +31,7 @@ export function analyze(issues, date = localDate()) {
     }
     metrics.total++; metrics[bucket]++; metrics.maxOverdueDays = Math.max(metrics.maxOverdueDays, daysOverdue);
     return { ...issue, bucket, daysOverdue };
-  }).sort((a, b) => (a.dueDate ?? '9999').localeCompare(b.dueDate ?? '9999') || a.key.localeCompare(b.key));
+  }).sort((a, b) => (a.dueDate ?? '9999').localeCompare(b.dueDate ?? '9999') || (a.key ?? '').localeCompare(b.key ?? ''));
   return { date, metrics, issues: rows };
 }
 export function selectPeriod(issues, period, date) {
