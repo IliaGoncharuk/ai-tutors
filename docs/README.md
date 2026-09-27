@@ -38,6 +38,12 @@
 | [decisions/0013-day-14-invariants.md](decisions/0013-day-14-invariants.md) | Проверка шести полей кодом и формирование ответа из допустимых данных. |
 | [features/day-15-controlled-transitions.md](features/day-15-controlled-transitions.md) | Серверные условия переходов, принятие версий плана и локальная валидация результата. |
 | [decisions/0014-day-15-controlled-transitions.md](decisions/0014-day-15-controlled-transitions.md) | Подтверждения, связанные с версиями требований, плана и спецификации. |
+| [features/day-16-mcp-connection.md](features/day-16-mcp-connection.md) | Соединение MCP, каталог инструментов, схемы и завершение процесса. |
+| [features/day-17-tracker-tool.md](features/day-17-tracker-tool.md) | Собственный инструмент Трекера, вызов агентом и числовая проекция данных. |
+| [features/day-18-tracker-scheduler.md](features/day-18-tracker-scheduler.md) | Расписание по будням, SQLite, фоновые сводки и восстановление. |
+| [features/day-19-mcp-pipeline.md](features/day-19-mcp-pipeline.md) | Цепочка получения, расчёта и сохранения через MCP. |
+| [features/day-20-mcp-orchestration.md](features/day-20-mcp-orchestration.md) | Два MCP-сервера Трекера, выбор инструментов и маршрутизация. |
+| [decisions/0015-days-16-20-tracker-mcp.md](decisions/0015-days-16-20-tracker-mcp.md) | Пять самостоятельных сайтов, ручной запуск, только агрегаты для модели и учебное разделение серверов. |
 
 ## Как определить канонический файл
 

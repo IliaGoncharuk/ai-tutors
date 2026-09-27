@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-27",
+  "source": "live",
+  "model": "gpt-5.6-luna",
+  "passed": true,
+  "runs": [
+    { "request": "report", "route": ["data__search_issues", "analytics__summarize_issues", "analytics__compare_previous", "analytics__save_report"], "comparisonAvailable": false, "numericOnly": true },
+    { "request": "report", "route": ["data__search_issues", "analytics__summarize_issues", "analytics__compare_previous", "analytics__save_report"], "comparisonAvailable": true, "numericOnly": true },
+    { "request": "last", "route": ["analytics__get_latest_report"], "numericOnly": true }
+  ],
+  "day20": { "requests": 12, "inputTokens": 8405, "outputTokens": 458, "estimatedUsd": 0.00265085 },
+  "series": { "requests": 14, "inputTokens": 9086, "outputTokens": 545, "estimatedUsd": 0.0029255, "reservedUsd": 0.7, "limitUsd": 1 },
+  "privateTaskDataIncluded": false
+}

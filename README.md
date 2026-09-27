@@ -19,6 +19,11 @@
 - [День 13 — состояние задачи, пауза и продолжение](challenges/day-13-task-state/README.md)
 - [День 14 — инварианты и объяснимый отказ при конфликте](challenges/day-14-invariants/README.md)
 - [День 15 — переходы по принятому плану и актуальной валидации](challenges/day-15-controlled-transitions/README.md)
+- [День 16 — подключение MCP и каталог инструментов](challenges/day-16-mcp-connection/README.md)
+- [День 17 — первый инструмент Яндекс Трекера](challenges/day-17-tracker-tool/README.md)
+- [День 18 — расписание утренних сводок](challenges/day-18-tracker-scheduler/README.md)
+- [День 19 — цепочка MCP-инструментов](challenges/day-19-mcp-pipeline/README.md)
+- [День 20 — оркестрация двух MCP-серверов](challenges/day-20-mcp-orchestration/README.md)
 
 ## Локальные сайты дней 11–15
 
@@ -33,6 +38,30 @@
 | 13 — состояние | [localhost:3013](http://localhost:3013) | `npm.cmd --prefix challenges/day-13-task-state start` |
 | 14 — инварианты | [localhost:3014](http://localhost:3014) | `npm.cmd --prefix challenges/day-14-invariants start` |
 | 15 — переходы | [localhost:3015](http://localhost:3015) | `npm.cmd --prefix challenges/day-15-controlled-transitions start` |
+
+## Локальные сайты дней 16–20
+
+Пять самостоятельных приложений вокруг Яндекс Трекера. Нужен Node.js 22.13+.
+Каждый запускается вручную; зависимости устанавливаются командой `npm.cmd ci`
+в папке соответствующего задания. Для быстрого запуска из корня репозитория:
+
+| День | Адрес | Запуск |
+| --- | --- | --- |
+| 16 — подключение | [localhost:3016](http://localhost:3016) | `npm.cmd --prefix challenges/day-16-mcp-connection start` |
+| 17 — инструмент Трекера | [localhost:3017](http://localhost:3017) | `npm.cmd --prefix challenges/day-17-tracker-tool start` |
+| 18 — расписание | [localhost:3018](http://localhost:3018) | `npm.cmd --prefix challenges/day-18-tracker-scheduler start` |
+| 19 — цепочка | [localhost:3019](http://localhost:3019) | `npm.cmd --prefix challenges/day-19-mcp-pipeline start` |
+| 20 — два сервера | [localhost:3020](http://localhost:3020) | `npm.cmd --prefix challenges/day-20-mcp-orchestration start` |
+
+Учебный режим работает без ключей. Реальный источник читает только назначенные
+владельцу токена задачи; для него нужны `YANDEX360_TOKEN` и `YANDEX360_ORG`
+либо специальные переменные Трекера, описанные в README каждого дня.
+В днях 17 и 20 настоящий агент использует `OPENAI_API_KEY` и получает только
+сводные показатели. Рабочие данные остаются вне репозитория.
+
+День 18: выберите источник, сохраните расписание 09:00 Екатеринбурга и включите
+выполнение по будням. Закрытие вкладки не мешает; остановка приложения и сон
+компьютера приостанавливают работу. Все приложения останавливаются через Ctrl+C.
 
 ## Справочные материалы
 

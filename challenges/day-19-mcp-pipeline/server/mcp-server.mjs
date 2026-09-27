@@ -1,0 +1,14 @@
+import {McpServer} from '@modelcontextprotocol/sdk/server/mcp.js';
+import {StdioServerTransport} from '@modelcontextprotocol/sdk/server/stdio.js';
+import {z} from 'zod';
+import {Store} from './store.mjs';
+import {PublicError} from './domain.mjs';
+import {collectSnapshot,summarizeSnapshot,saveReport} from './reporting.mjs';
+const store=new Store(),source=process.env.TRACKER_SOURCE??'demo';
+const server=new McpServer({name:'tracker-pipeline',version:'1.0.0'});
+const handler=fn=>async args=>{try{return {content:[{type:'text',text:JSON.stringify(await fn(args))}]};}catch(error){return {isError:true,content:[{type:'text',text:error instanceof PublicError?error.message:'Не удалось выполнить шаг.'}]};}};
+const local={readOnlyHint:false,destructiveHint:false,openWorldHint:false};
+server.registerTool('search_issues',{title:'Получить задачи',description:'Читает мои незавершённые задачи и сохраняет локальный снимок. Возвращает его идентификатор и число строк.',inputSchema:{period:z.enum(['all','overdue','today'])},annotations:{...local,openWorldHint:true}},handler(({period})=>collectSnapshot(store,source,period)));
+server.registerTool('summarize_issues',{title:'Рассчитать сводку',description:'Читает снимок предыдущего шага и считает просроченные задачи, сроки на сегодня и другие категории.',inputSchema:{snapshotId:z.string().uuid()},annotations:local},handler(({snapshotId})=>summarizeSnapshot(store,snapshotId)));
+server.registerTool('save_report',{title:'Сохранить отчёт',description:'Сохраняет рассчитанную сводку как Markdown и JSON в выделенном локальном каталоге.',inputSchema:{summaryId:z.string().uuid()},annotations:local},handler(({summaryId})=>saveReport(store,summaryId)));
+await server.connect(new StdioServerTransport());
