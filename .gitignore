@@ -13,6 +13,7 @@ dist/
 coverage/
 
 # Logs and local tooling
+.local-rag/
 *.log
 .idea/
 *.iml

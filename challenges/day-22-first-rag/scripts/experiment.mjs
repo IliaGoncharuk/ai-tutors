@@ -1,0 +1,6 @@
+import { writeFileSync } from 'node:fs';
+import { Store, Provider, questions, fingerprint } from '../server/core.mjs';
+import { answer } from '../server/rag.mjs';
+const store=new Store(),provider=new Provider(),before=provider.budget(),rows=[];
+function save(){const totals=Object.fromEntries(['plain','rag'].map(mode=>[mode,rows.filter(r=>r.mode===mode).reduce((s,r)=>s+r.keywordHits,0)]));writeFileSync(new URL('../results/experiment.json',import.meta.url),JSON.stringify({date:'2026-10-05',kind:'live',corpusFingerprint:fingerprint,method:'10 predefined questions; same model and instructions, context only in RAG. Keyword coverage is diagnostic, not semantic correctness. Exact request payloads, context, responses and usage follow.',summary:{'Без RAG · маркеры':`${totals.plain}/26`,'С RAG · маркеры':`${totals.rag}/26`,'Ответов':rows.length},before,after:provider.budget(),rows},null,2)+'\n');}
+try{for(const q of questions)for(const mode of ['plain','rag']){const result=await answer(store,provider,{question:q.question,mode});const lower=result.text.toLowerCase();rows.push({...q,...result,keywordHits:q.keywords.filter(k=>lower.includes(k)).length,keywordTotal:q.keywords.length});save();console.log(`${q.id} ${mode}: ${rows.at(-1).keywordHits}/${q.keywords.length}`);}}finally{store.close();provider.close();}

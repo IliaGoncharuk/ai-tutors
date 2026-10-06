@@ -1,0 +1,7 @@
+{
+  "name": "day-21-document-indexing", "version": "1.0.0", "private": true, "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "scripts": { "start": "node server/index.mjs", "test": "node --test tests/*.test.mjs", "typecheck": "tsc --noEmit", "build": "vite build", "check": "npm test && npm run typecheck && npm run build", "experiment": "node scripts/experiment.mjs" },
+  "dependencies": { "react": "19.2.8", "react-dom": "19.2.8" },
+  "devDependencies": { "@types/react": "19.2.14", "@types/react-dom": "19.2.3", "typescript": "5.9.3", "vite": "8.2.2" }
+}

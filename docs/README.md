@@ -45,6 +45,12 @@
 | [features/day-20-mcp-orchestration.md](features/day-20-mcp-orchestration.md) | Два MCP-сервера Трекера, выбор инструментов и маршрутизация. |
 | [decisions/0015-days-16-20-tracker-mcp.md](decisions/0015-days-16-20-tracker-mcp.md) | Пять самостоятельных сайтов, ручной запуск, только агрегаты для модели и учебное разделение серверов. |
 | [decisions/0016-tracker-anonymous-results.md](decisions/0016-tracker-anonymous-results.md) | Обезличенные строки задач, новые отчёты и чтение старых сохранений. |
+| [features/day-21-document-indexing.md](features/day-21-document-indexing.md) | Корпус, две стратегии разбиения, индекс с метаданными и сравнение поиска. |
+| [features/day-22-first-rag.md](features/day-22-first-rag.md) | Ответы с контекстом и без него, десять контрольных вопросов и оценка качества. |
+| [features/day-23-rag-filtering.md](features/day-23-rag-filtering.md) | Фильтр, эвристическое ранжирование, переписывание вопроса и четыре режима. |
+| [features/day-24-grounded-answers.md](features/day-24-grounded-answers.md) | Проверка источников и цитат, порог релевантности и отказ при слабом контексте. |
+| [features/day-25-rag-memory-chat.md](features/day-25-rag-memory-chat.md) | История, память задачи, происхождение фактов и два длинных диалога. |
+| [decisions/0017-days-21-25-local-rag.md](decisions/0017-days-21-25-local-rag.md) | Пять самостоятельных сайтов, фиксированная база документов и общий бюджет $1. |
 
 ## Как определить канонический файл
 

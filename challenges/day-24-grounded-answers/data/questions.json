@@ -1,0 +1,128 @@
+[
+  {
+    "id": "q1",
+    "question": "Что происходит с рабочей памятью Дня 11 при новом диалоге и при новой задаче?",
+    "expected": "Новый диалог сохраняет условия задачи; новая задача получает отдельную рабочую память.",
+    "keywords": [
+      "диалог",
+      "задач",
+      "памят"
+    ],
+    "sources": [
+      "challenges/day-11-memory-layers/README.md"
+    ]
+  },
+  {
+    "id": "q2",
+    "question": "Какие три готовых профиля есть в лаборатории Дня 12?",
+    "expected": "Начинающий, разработчик и руководитель.",
+    "keywords": [
+      "начинающ",
+      "разработчик",
+      "руководител"
+    ],
+    "sources": [
+      "challenges/day-12-personalization/README.md"
+    ]
+  },
+  {
+    "id": "q3",
+    "question": "Как в Дне 13 сохраняется место работы при паузе и продолжении?",
+    "expected": "Флаг паузы хранится отдельно от этапа; продолжение снимает паузу и сохраняет этап, шаг и материалы.",
+    "keywords": [
+      "пауз",
+      "этап"
+    ],
+    "sources": [
+      "challenges/day-13-task-state/README.md"
+    ]
+  },
+  {
+    "id": "q4",
+    "question": "Что происходит с принятыми планом и спецификацией Дня 15 при изменении требований?",
+    "expected": "Подтверждения старых версий сбрасываются, нужно заново принять актуальные результаты.",
+    "keywords": [
+      "требован",
+      "подтвержд"
+    ],
+    "sources": [
+      "challenges/day-15-controlled-transitions/README.md"
+    ]
+  },
+  {
+    "id": "q5",
+    "question": "В какое время и в каком часовом поясе запускается сводка Дня 18, в какие дни?",
+    "expected": "09:00 Asia/Yekaterinburg по будням.",
+    "keywords": [
+      "09:00",
+      "будн",
+      "yekaterinburg"
+    ],
+    "sources": [
+      "challenges/day-18-tracker-scheduler/README.md"
+    ]
+  },
+  {
+    "id": "q6",
+    "question": "Продолжит ли День 18 собирать сводки после закрытия вкладки, остановки приложения и во сне компьютера?",
+    "expected": "Закрытие вкладки не мешает; нужен работающий процесс и бодрствующий компьютер, после пропуска собирается актуальная сводка.",
+    "keywords": [
+      "вкладк",
+      "процесс"
+    ],
+    "sources": [
+      "challenges/day-18-tracker-scheduler/README.md"
+    ]
+  },
+  {
+    "id": "q7",
+    "question": "Как называются два MCP-сервера Дня 20 и за что отвечает каждый?",
+    "expected": "tracker-data читает задачи, tracker-analytics рассчитывает, сравнивает и сохраняет сводки.",
+    "keywords": [
+      "tracker-data",
+      "tracker-analytics"
+    ],
+    "sources": [
+      "challenges/day-20-mcp-orchestration/README.md"
+    ]
+  },
+  {
+    "id": "q8",
+    "question": "Какой порядок четырёх инструментов используется для полного отчёта Дня 20?",
+    "expected": "search_issues → summarize_issues → compare_previous → save_report.",
+    "keywords": [
+      "search_issues",
+      "summarize_issues",
+      "compare_previous",
+      "save_report"
+    ],
+    "sources": [
+      "challenges/day-20-mcp-orchestration/README.md"
+    ]
+  },
+  {
+    "id": "q9",
+    "question": "Почему в интерфейсе Дня 17 задачи обозначены «Задача N», без названий и ссылок?",
+    "expected": "Названия, ключи и ссылки исключены для обезличивания; показаны сроки и показатели.",
+    "keywords": [
+      "назван",
+      "ссыл"
+    ],
+    "sources": [
+      "challenges/day-17-tracker-tool/README.md"
+    ]
+  },
+  {
+    "id": "q10",
+    "question": "Какие три стратегии контекста сравнивает День 10?",
+    "expected": "Sliding Window, Facts и Branching.",
+    "keywords": [
+      "window",
+      "facts",
+      "branch"
+    ],
+    "sources": [
+      "challenges/day-10-context-strategies/README.md"
+    ]
+  }
+]
