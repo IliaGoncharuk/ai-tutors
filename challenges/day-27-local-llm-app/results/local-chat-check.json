@@ -1,0 +1,21 @@
+{
+  "createdAt": "2026-10-11",
+  "model": "qwen/qwen3-4b-2507",
+  "application": "http://127.0.0.1:3027",
+  "scenario": [
+    {
+      "prompt": "Составь план урока на 60 минут по дробям для школьника. Включи ровно один перерыв длительностью 10 минут. Укажи начало и конец каждого этапа.",
+      "elapsedMs": 1794,
+      "finishReason": "stop",
+      "observation": "The answer retained the 10-minute break but scheduled the lesson through 02:00 and claimed the total was 60 minutes. Constraint check failed."
+    },
+    {
+      "prompt": "Измени общий план: теперь ровно 30 минут, перерыв оставь ровно 10 минут. Перечисли этапы, чтобы сумма была ровно 30.",
+      "elapsedMs": 5123,
+      "finishReason": "length",
+      "observation": "The answer reused conversation context, but repeated contradictory schedules, exceeded the 30-minute limit, and was cut off at the output limit. Constraint check failed."
+    }
+  ],
+  "method": "Two sequential requests through the local application API; second request received the first user-assistant exchange as context.",
+  "limitations": "One short run on one model and one synthetic schedule scenario; not a broad quality or performance evaluation. Latency includes local application request round-trip, not a controlled benchmark."
+}

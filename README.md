@@ -29,6 +29,11 @@
 - [День 23 — фильтрация, ранжирование и переписывание вопроса](challenges/day-23-rag-filtering/README.md)
 - [День 24 — проверяемые цитаты, источники и отказ от выдумок](challenges/day-24-grounded-answers/README.md)
 - [День 25 — чат с RAG и памятью задачи](challenges/day-25-rag-memory-chat/README.md)
+- [День 26 — запуск локальной LLM](challenges/day-26-local-llm/README.md)
+- [День 27 — чат-приложение с локальной LLM](challenges/day-27-local-llm-app/README.md)
+- [День 28 — локальный RAG и сравнение генерации](challenges/day-28-local-rag/README.md)
+- [День 29 — настройка локальной модели](challenges/day-29-local-llm-optimization/README.md)
+- [День 30 — приватный сервис в домашней сети](challenges/day-30-private-local-service/README.md)
 
 ## Локальные сайты дней 11–15
 
@@ -105,6 +110,25 @@ SQLite, история и общий бюджет хранятся в `~/.ai-tut
 диалогах цель сохранилась 24/24, получено 22 ответа с цитатами и два отказа.
 Точные данные, недостатки поиска и смысловые ошибки разобраны в README и
 JSON-протоколах соответствующих дней.
+
+## Локальные сайты дней 26–30
+
+Пять независимых сайтов в отдельных папках, порты 3026–3030. Нужны Node.js
+22.13+ и запущенный API-сервер LM Studio на `127.0.0.1:1234`. В папках нет
+устанавливаемых npm-зависимостей; сайт запускается из корня репозитория:
+
+| День | Адрес | Запуск |
+| --- | --- | --- |
+| 26 — три запроса | [localhost:3026](http://localhost:3026) | `npm.cmd --prefix challenges/day-26-local-llm start` |
+| 27 — локальный чат | [localhost:3027](http://localhost:3027) | `npm.cmd --prefix challenges/day-27-local-llm-app start` |
+| 28 — локальный RAG | [localhost:3028](http://localhost:3028) | `npm.cmd --prefix challenges/day-28-local-rag start` |
+| 29 — настройка модели | [localhost:3029](http://localhost:3029) | `npm.cmd --prefix challenges/day-29-local-llm-optimization start` |
+| 30 — домашний сервис | [localhost:3030](http://localhost:3030) | отдельные инструкции в README Дня 30 |
+
+Дни 26–29 доступны только на компьютере пользователя. День 30 слушает домашнюю
+сеть и требует `DAY30_SERVICE_TOKEN`; настройте его по README задания. LM Studio
+остаётся локальной службой, облачные вызовы Дня 28 выполняются только вручную
+и требуют `OPENAI_API_KEY`. Все запущенные сайты останавливаются через Ctrl+C.
 
 ## Справочные материалы
 

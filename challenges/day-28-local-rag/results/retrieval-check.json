@@ -1,0 +1,573 @@
+{
+  "createdAt": "2026-10-11T15:42:08.599Z",
+  "runtime": "v24.14.0",
+  "machine": {
+    "platform": "win32",
+    "architecture": "x64",
+    "logicalCpuCount": 20,
+    "ramGiB": 31.8
+  },
+  "corpusFingerprint": "1adaf3330b3208728eb1899da545f1f74097a153db6ce153923eca462eb9dd93",
+  "indexEmbeddingModel": "text-embedding-3-small",
+  "dimensions": 512,
+  "retrieval": "Local lexical BM25-like term ranking over fixed-strategy chunk text. The archived vectors are ignored.",
+  "chunkCount": 94,
+  "cases": [
+    {
+      "id": "q1",
+      "question": "Что происходит с рабочей памятью Дня 11 при новом диалоге и при новой задаче?",
+      "expectedSources": [
+        "challenges/day-11-memory-layers/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-11-memory-layers/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 30.967,
+          "source": "challenges/day-11-memory-layers/README.md",
+          "chunk_id": "fixed-596d25fbec93aad9"
+        },
+        {
+          "rank": 2,
+          "score": 25.257,
+          "source": "challenges/day-11-memory-layers/README.md",
+          "chunk_id": "fixed-61136d912bb18f2a"
+        },
+        {
+          "rank": 3,
+          "score": 24.09,
+          "source": "challenges/day-11-memory-layers/README.md",
+          "chunk_id": "fixed-faaf931e664a7439"
+        },
+        {
+          "rank": 4,
+          "score": 22.162,
+          "source": "challenges/day-11-memory-layers/README.md",
+          "chunk_id": "fixed-42f1639495613248"
+        },
+        {
+          "rank": 5,
+          "score": 20.752,
+          "source": "challenges/day-07-context-persistence/README.md",
+          "chunk_id": "fixed-31cbce8cfab32be2"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "диалог",
+          "задач",
+          "памят"
+        ],
+        "found": [
+          "диалог",
+          "задач",
+          "памят"
+        ]
+      },
+      "elapsedMs": 6.46
+    },
+    {
+      "id": "q2",
+      "question": "Какие три готовых профиля есть в лаборатории Дня 12?",
+      "expectedSources": [
+        "challenges/day-12-personalization/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-12-personalization/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 13.189,
+          "source": "challenges/day-12-personalization/README.md",
+          "chunk_id": "fixed-505310e8b6829bfe"
+        },
+        {
+          "rank": 2,
+          "score": 10.3,
+          "source": "challenges/day-12-personalization/README.md",
+          "chunk_id": "fixed-aef30ec3b6fffea8"
+        },
+        {
+          "rank": 3,
+          "score": 9.589,
+          "source": "challenges/day-12-personalization/README.md",
+          "chunk_id": "fixed-4008b0db70ccbee1"
+        },
+        {
+          "rank": 4,
+          "score": 9.123,
+          "source": "challenges/day-13-task-state/README.md",
+          "chunk_id": "fixed-13a80b1db4bd2664"
+        },
+        {
+          "rank": 5,
+          "score": 8.892,
+          "source": "challenges/day-14-invariants/README.md",
+          "chunk_id": "fixed-42341e5b492334b8"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "начинающ",
+          "разработчик",
+          "руководител"
+        ],
+        "found": [
+          "начинающ",
+          "разработчик",
+          "руководител"
+        ]
+      },
+      "elapsedMs": 3.05
+    },
+    {
+      "id": "q3",
+      "question": "Как в Дне 13 сохраняется место работы при паузе и продолжении?",
+      "expectedSources": [
+        "challenges/day-13-task-state/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-13-task-state/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 22.89,
+          "source": "challenges/day-13-task-state/README.md",
+          "chunk_id": "fixed-33cffeb3880a2d25"
+        },
+        {
+          "rank": 2,
+          "score": 19.539,
+          "source": "challenges/day-13-task-state/README.md",
+          "chunk_id": "fixed-13a80b1db4bd2664"
+        },
+        {
+          "rank": 3,
+          "score": 14.585,
+          "source": "challenges/day-15-controlled-transitions/README.md",
+          "chunk_id": "fixed-5cbd436a72a2ca7c"
+        },
+        {
+          "rank": 4,
+          "score": 13.705,
+          "source": "challenges/day-04-temperature/README.md",
+          "chunk_id": "fixed-81e0cb9000203ab8"
+        },
+        {
+          "rank": 5,
+          "score": 13.272,
+          "source": "challenges/day-13-task-state/README.md",
+          "chunk_id": "fixed-fc3f2da33b3c5c21"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "пауз",
+          "этап"
+        ],
+        "found": [
+          "пауз",
+          "этап"
+        ]
+      },
+      "elapsedMs": 4.302
+    },
+    {
+      "id": "q4",
+      "question": "Что происходит с принятыми планом и спецификацией Дня 15 при изменении требований?",
+      "expectedSources": [
+        "challenges/day-15-controlled-transitions/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-15-controlled-transitions/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 31.845,
+          "source": "challenges/day-15-controlled-transitions/README.md",
+          "chunk_id": "fixed-3947791cac16bf1d"
+        },
+        {
+          "rank": 2,
+          "score": 27.732,
+          "source": "challenges/day-15-controlled-transitions/README.md",
+          "chunk_id": "fixed-d5acb823ced4237e"
+        },
+        {
+          "rank": 3,
+          "score": 26.358,
+          "source": "challenges/day-14-invariants/README.md",
+          "chunk_id": "fixed-42341e5b492334b8"
+        },
+        {
+          "rank": 4,
+          "score": 23.952,
+          "source": "challenges/day-14-invariants/README.md",
+          "chunk_id": "fixed-9cf08f8780e20252"
+        },
+        {
+          "rank": 5,
+          "score": 21.357,
+          "source": "challenges/day-15-controlled-transitions/README.md",
+          "chunk_id": "fixed-5cbd436a72a2ca7c"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "требован",
+          "подтвержд"
+        ],
+        "found": [
+          "требован",
+          "подтвержд"
+        ]
+      },
+      "elapsedMs": 3.621
+    },
+    {
+      "id": "q5",
+      "question": "В какое время и в каком часовом поясе запускается сводка Дня 18, в какие дни?",
+      "expectedSources": [
+        "challenges/day-18-tracker-scheduler/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-18-tracker-scheduler/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 21.285,
+          "source": "challenges/day-18-tracker-scheduler/README.md",
+          "chunk_id": "fixed-59f8f7294026a122"
+        },
+        {
+          "rank": 2,
+          "score": 16.868,
+          "source": "challenges/day-18-tracker-scheduler/README.md",
+          "chunk_id": "fixed-28c6b61ebfdfc4a8"
+        },
+        {
+          "rank": 3,
+          "score": 16.61,
+          "source": "challenges/day-18-tracker-scheduler/README.md",
+          "chunk_id": "fixed-51a927fe51d00845"
+        },
+        {
+          "rank": 4,
+          "score": 13.273,
+          "source": "challenges/day-04-temperature/README.md",
+          "chunk_id": "fixed-66998b620456eea9"
+        },
+        {
+          "rank": 5,
+          "score": 13.033,
+          "source": "challenges/day-13-task-state/README.md",
+          "chunk_id": "fixed-fc3f2da33b3c5c21"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "09:00",
+          "будн",
+          "yekaterinburg"
+        ],
+        "found": [
+          "09:00",
+          "будн",
+          "yekaterinburg"
+        ]
+      },
+      "elapsedMs": 4.235
+    },
+    {
+      "id": "q6",
+      "question": "Продолжит ли День 18 собирать сводки после закрытия вкладки, остановки приложения и во сне компьютера?",
+      "expectedSources": [
+        "challenges/day-18-tracker-scheduler/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-18-tracker-scheduler/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 33.112,
+          "source": "challenges/day-18-tracker-scheduler/README.md",
+          "chunk_id": "fixed-28c6b61ebfdfc4a8"
+        },
+        {
+          "rank": 2,
+          "score": 22.659,
+          "source": "challenges/day-18-tracker-scheduler/README.md",
+          "chunk_id": "fixed-59f8f7294026a122"
+        },
+        {
+          "rank": 3,
+          "score": 20.918,
+          "source": "challenges/day-13-task-state/README.md",
+          "chunk_id": "fixed-13a80b1db4bd2664"
+        },
+        {
+          "rank": 4,
+          "score": 15.252,
+          "source": "challenges/day-18-tracker-scheduler/README.md",
+          "chunk_id": "fixed-51a927fe51d00845"
+        },
+        {
+          "rank": 5,
+          "score": 12.571,
+          "source": "challenges/day-13-task-state/README.md",
+          "chunk_id": "fixed-33cffeb3880a2d25"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "вкладк",
+          "процесс"
+        ],
+        "found": [
+          "вкладк",
+          "процесс"
+        ]
+      },
+      "elapsedMs": 6.358
+    },
+    {
+      "id": "q7",
+      "question": "Как называются два MCP-сервера Дня 20 и за что отвечает каждый?",
+      "expectedSources": [
+        "challenges/day-20-mcp-orchestration/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-20-mcp-orchestration/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 13.698,
+          "source": "challenges/day-20-mcp-orchestration/README.md",
+          "chunk_id": "fixed-7d06077309c4e470"
+        },
+        {
+          "rank": 2,
+          "score": 11.468,
+          "source": "challenges/day-20-mcp-orchestration/README.md",
+          "chunk_id": "fixed-3e2dfbea7fd2a3f5"
+        },
+        {
+          "rank": 3,
+          "score": 11.235,
+          "source": "challenges/day-20-mcp-orchestration/README.md",
+          "chunk_id": "fixed-27e2a83516132464"
+        },
+        {
+          "rank": 4,
+          "score": 10.74,
+          "source": "challenges/day-16-mcp-connection/README.md",
+          "chunk_id": "fixed-52f7ab6c30575104"
+        },
+        {
+          "rank": 5,
+          "score": 10.664,
+          "source": "challenges/day-16-mcp-connection/README.md",
+          "chunk_id": "fixed-554951339314e1cb"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "tracker-data",
+          "tracker-analytics"
+        ],
+        "found": [
+          "tracker-data",
+          "tracker-analytics"
+        ]
+      },
+      "elapsedMs": 4.339
+    },
+    {
+      "id": "q8",
+      "question": "Какой порядок четырёх инструментов используется для полного отчёта Дня 20?",
+      "expectedSources": [
+        "challenges/day-20-mcp-orchestration/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-20-mcp-orchestration/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 18.709,
+          "source": "challenges/day-20-mcp-orchestration/README.md",
+          "chunk_id": "fixed-1797c87873cf04a8"
+        },
+        {
+          "rank": 2,
+          "score": 18.413,
+          "source": "challenges/day-19-mcp-pipeline/README.md",
+          "chunk_id": "fixed-2f6810d83ce04721"
+        },
+        {
+          "rank": 3,
+          "score": 17.845,
+          "source": "challenges/day-19-mcp-pipeline/README.md",
+          "chunk_id": "fixed-282ca234a20bd0ac"
+        },
+        {
+          "rank": 4,
+          "score": 16.497,
+          "source": "challenges/day-11-memory-layers/README.md",
+          "chunk_id": "fixed-596d25fbec93aad9"
+        },
+        {
+          "rank": 5,
+          "score": 16.425,
+          "source": "challenges/day-20-mcp-orchestration/README.md",
+          "chunk_id": "fixed-7d373556b4fe87ae"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "search_issues",
+          "summarize_issues",
+          "compare_previous",
+          "save_report"
+        ],
+        "found": [
+          "search_issues",
+          "summarize_issues",
+          "compare_previous",
+          "save_report"
+        ]
+      },
+      "elapsedMs": 5.678
+    },
+    {
+      "id": "q9",
+      "question": "Почему в интерфейсе Дня 17 задачи обозначены «Задача N», без названий и ссылок?",
+      "expectedSources": [
+        "challenges/day-17-tracker-tool/README.md"
+      ],
+      "matchedSources": [
+        "challenges/day-17-tracker-tool/README.md"
+      ],
+      "sourceHit": true,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 23.996,
+          "source": "challenges/day-20-mcp-orchestration/README.md",
+          "chunk_id": "fixed-7d373556b4fe87ae"
+        },
+        {
+          "rank": 2,
+          "score": 21.031,
+          "source": "challenges/day-17-tracker-tool/README.md",
+          "chunk_id": "fixed-2dc88928f782132f"
+        },
+        {
+          "rank": 3,
+          "score": 20.181,
+          "source": "challenges/day-18-tracker-scheduler/README.md",
+          "chunk_id": "fixed-c17c471b892238cd"
+        },
+        {
+          "rank": 4,
+          "score": 18.893,
+          "source": "challenges/day-17-tracker-tool/README.md",
+          "chunk_id": "fixed-79a3d495c5f81edf"
+        },
+        {
+          "rank": 5,
+          "score": 16.806,
+          "source": "challenges/day-04-temperature/README.md",
+          "chunk_id": "fixed-7f61c3107f33ec75"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "назван",
+          "ссыл"
+        ],
+        "found": [
+          "назван",
+          "ссыл"
+        ]
+      },
+      "elapsedMs": 8.129
+    },
+    {
+      "id": "q10",
+      "question": "Какие три стратегии контекста сравнивает День 10?",
+      "expectedSources": [
+        "challenges/day-10-context-strategies/README.md"
+      ],
+      "matchedSources": [],
+      "sourceHit": false,
+      "top5": [
+        {
+          "rank": 1,
+          "score": 11.491,
+          "source": "challenges/day-12-personalization/README.md",
+          "chunk_id": "fixed-aef30ec3b6fffea8"
+        },
+        {
+          "rank": 2,
+          "score": 11.089,
+          "source": "challenges/day-05-model-comparison/README.md",
+          "chunk_id": "fixed-db56758dd893eb76"
+        },
+        {
+          "rank": 3,
+          "score": 9.726,
+          "source": "challenges/day-04-temperature/README.md",
+          "chunk_id": "fixed-8f572bcaf757058e"
+        },
+        {
+          "rank": 4,
+          "score": 9.302,
+          "source": "challenges/day-12-personalization/README.md",
+          "chunk_id": "fixed-505310e8b6829bfe"
+        },
+        {
+          "rank": 5,
+          "score": 8.769,
+          "source": "challenges/day-20-mcp-orchestration/README.md",
+          "chunk_id": "fixed-27e2a83516132464"
+        }
+      ],
+      "controlKeywords": {
+        "expected": [
+          "window",
+          "facts",
+          "branch"
+        ],
+        "found": []
+      },
+      "elapsedMs": 3.789
+    }
+  ],
+  "summary": {
+    "questions": 10,
+    "sourceHits": 9,
+    "sourceHitRate": 0.9,
+    "meanQueryMs": 4.996,
+    "keywordsFound": 23,
+    "keywordsExpected": 26,
+    "processElapsedMs": 50.615
+  },
+  "limitation": "Source hit and keyword overlap are retrieval diagnostics, not semantic answer-quality judgments. The sample has ten questions."
+}

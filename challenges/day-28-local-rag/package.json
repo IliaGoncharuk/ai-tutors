@@ -1,0 +1,8 @@
+{
+  "name": "day-28-local-rag",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "scripts": { "start": "node server.mjs", "check": "node --check server.mjs && node --check retrieval.mjs && node --check public/app.js && node --check scripts/retrieval-check.mjs", "experiment:retrieval": "node scripts/retrieval-check.mjs" }
+}

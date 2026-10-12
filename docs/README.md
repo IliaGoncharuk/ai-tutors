@@ -51,6 +51,12 @@
 | [features/day-24-grounded-answers.md](features/day-24-grounded-answers.md) | Проверка источников и цитат, порог релевантности и отказ при слабом контексте. |
 | [features/day-25-rag-memory-chat.md](features/day-25-rag-memory-chat.md) | История, память задачи, происхождение фактов и два длинных диалога. |
 | [decisions/0017-days-21-25-local-rag.md](decisions/0017-days-21-25-local-rag.md) | Пять самостоятельных сайтов, фиксированная база документов и общий бюджет $1. |
+| [features/day-26-local-llm.md](features/day-26-local-llm.md) | Запуск локальной модели и три запроса разной сложности. |
+| [features/day-27-local-llm-app.md](features/day-27-local-llm-app.md) | Чат-приложение с контекстом, работающее через локальный API. |
+| [features/day-28-local-rag.md](features/day-28-local-rag.md) | Локальный поиск по индексу недели 6 и сравнение генерации. |
+| [features/day-29-local-llm-optimization.md](features/day-29-local-llm-optimization.md) | Сравнение настроек генерации, качества, скорости и памяти. |
+| [features/day-30-private-local-service.md](features/day-30-private-local-service.md) | Приватный API домашней сети с аутентификацией и ограничениями. |
+| [decisions/0018-days-26-30-local-llm.md](decisions/0018-days-26-30-local-llm.md) | Пять самостоятельных сайтов на LM Studio, LAN-граница Дня 30 и локальный retrieval. |
 
 ## Как определить канонический файл
 
