@@ -1,0 +1,8 @@
+{
+  "name": "my-pet-project",
+  "contextPaths": ["README.md", "CHANGELOG.md", "docs/", "src/", "lib/", "server/", "app/"],
+  "requiredFiles": ["README.md"],
+  "checks": [
+    { "name": "tests", "command": ["npm", "test"], "cwd": ".", "timeoutMs": 60000 }
+  ]
+}

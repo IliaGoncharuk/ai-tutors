@@ -57,6 +57,12 @@
 | [features/day-29-local-llm-optimization.md](features/day-29-local-llm-optimization.md) | Сравнение настроек генерации, качества, скорости и памяти. |
 | [features/day-30-private-local-service.md](features/day-30-private-local-service.md) | Приватный API домашней сети с аутентификацией и ограничениями. |
 | [decisions/0018-days-26-30-local-llm.md](decisions/0018-days-26-30-local-llm.md) | Пять самостоятельных сайтов на LM Studio, LAN-граница Дня 30 и локальный retrieval. |
+| [features/day-31-developer-assistant.md](features/day-31-developer-assistant.md) | Вопросы /help, RAG по документации и текущий git-контекст через MCP. |
+| [features/day-32-ai-code-review.md](features/day-32-ai-code-review.md) | Анализ diff, RAG по документации и коду, отчёт GitHub Actions. |
+| [features/day-33-support-assistant.md](features/day-33-support-assistant.md) | FAQ и консультации с контекстом синтетических пользователей и тикетов. |
+| [features/day-34-project-file-assistant.md](features/day-34-project-file-assistant.md) | Самостоятельный выбор файловых инструментов, запись в учебную копию и diff. |
+| [features/day-35-release-assistant.md](features/day-35-release-assistant.md) | Переносимый CLI подготовки релиза, проверки и AI-черновик release notes. |
+| [decisions/0019-days-31-35-project-assistants.md](decisions/0019-days-31-35-project-assistants.md) | Пять отдельных приложений, общий бюджет $1, JSON поддержки, учебная копия и переносимый CLI. |
 
 ## Как определить канонический файл
 

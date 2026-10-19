@@ -1,0 +1,290 @@
+{
+  "executedAt": "2026-10-18T17:28:42.058Z",
+  "kind": "real-cloud-on-synthetic-diffs",
+  "index": {
+    "documents": 92,
+    "chunks": 403,
+    "reused": false
+  },
+  "before": {
+    "calls": 33,
+    "spent": 0.0110536,
+    "reserved": 0,
+    "inputTokens": 201205,
+    "outputTokens": 1256,
+    "limit": 1
+  },
+  "after": {
+    "calls": 38,
+    "spent": 0.01381912,
+    "reserved": 0,
+    "inputTokens": 216313,
+    "outputTokens": 1938,
+    "limit": 1
+  },
+  "runs": [
+    {
+      "title": "Учебный diff: резерв бюджета и авторизация",
+      "question": "Проверь потенциальные баги, архитектуру и рекомендации.",
+      "diff": "diff --git a/challenges/day-32-ai-code-review/fixtures/budget.mjs b/challenges/day-32-ai-code-review/fixtures/budget.mjs\n--- a/challenges/day-32-ai-code-review/fixtures/budget.mjs\n+++ b/challenges/day-32-ai-code-review/fixtures/budget.mjs\n@@ -1,5 +1,5 @@\n export function reserve(spent, reserved, amount, limit) {\n-  if (spent + reserved + amount > limit) throw new Error('Budget exceeded');\n+  if (spent + amount > limit) throw new Error('Budget exceeded');\n   return reserved + amount;\n }\n-export const authorized = (actual, expected) => Boolean(expected) && actual === expected;\n+export const authorized = (actual, expected) => !expected || actual === expected;\n",
+      "files": [
+        {
+          "path": "challenges/day-32-ai-code-review/fixtures/budget.mjs",
+          "content": "export function reserve(spent, reserved, amount, limit) {\n  if (spent + amount > limit) throw new Error('Budget exceeded');\n  return reserved + amount;\n}\nexport const authorized = (actual, expected) => !expected || actual === expected;\n"
+        }
+      ],
+      "summary": "Обнаружены две конкретные регрессии относительно правил резервирования бюджета и авторизации.",
+      "findings": [
+        {
+          "severity": "P1",
+          "category": "bug",
+          "title": "Резервирование игнорирует уже зарезервированный бюджет",
+          "file": "challenges/day-32-ai-code-review/fixtures/budget.mjs",
+          "line": 2,
+          "explanation": "Проверка учитывает только `spent + amount` и исключает `reserved`. При параллельных или незавершённых запросах уже зарезервированная сумма не уменьшает доступный лимит, поэтому суммарные резервы могут превысить лимит. Это прямо нарушает правило [S1]: резервирование должно проверять `spent + reserved + amount`.",
+          "recommendation": "Вернуть `reserved` в условие: `if (spent + reserved + amount > limit) throw new Error('Budget exceeded');`."
+        },
+        {
+          "severity": "P1",
+          "category": "bug",
+          "title": "Отсутствующий ожидаемый токен разрешает авторизацию",
+          "file": "challenges/day-32-ai-code-review/fixtures/budget.mjs",
+          "line": 5,
+          "explanation": "При falsy-значении `expected` выражение `!expected || actual === expected` возвращает `true`, независимо от `actual`. Поэтому при незаданном токене доступ разрешается, хотя правило [S1] требует запрещать авторизацию, если токен сервиса не задан.",
+          "recommendation": "Сохранить отказ при отсутствии ожидаемого токена: `actual => Boolean(expected) && actual === expected` или эквивалентную явную проверку."
+        }
+      ],
+      "answer": "Обнаружены две конкретные регрессии относительно правил резервирования бюджета и авторизации.",
+      "context": [
+        {
+          "source": "challenges/day-31-developer-assistant/server/provider.mjs",
+          "start": 1,
+          "end": 29,
+          "heading": "",
+          "text": "import { DatabaseSync } from 'node:sqlite';\nimport { mkdirSync } from 'node:fs';\nimport { join } from 'node:path';\nimport { homedir } from 'node:os';\nimport { createHash, randomUUID } from 'node:crypto';\nimport { DAY } from './config.mjs';\n\nexport const MODEL = 'gpt-5.6-luna';\nexport const EMBEDDING_MODEL = 'text-embedding-3-small';\nexport const hash = value => createHash('sha256').update(value).digest('hex');\nexport const dataDirectory = () => process.env.AI_TUTORS_DATA_DIR || join(homedir(), '.ai-tutors', 'days-31-35');\nexport class PublicError extends Error {}\nexport function assert(condition, message) { if (!condition) throw new PublicError(message); }\nexport class Provider {\n  constructor({ directory = dataDirectory(), transport = fetch } = {}) {\n    mkdirSync(directory, { recursive: true }); this.directory = directory; this.transport = transport;\n    this.db = new DatabaseSync(join(directory, 'campaign.sqlite'));\n    this.db.exec(`PRAGMA busy_timeout=10000; PRAGMA journal_mode=WAL;\n      CREATE TABLE IF NOT EXISTS calls(id TEXT PRIMARY KEY,day INTEGER,kind TEXT,reserve REAL,cost REAL,input INTEGER,output INTEGER);\n      CREATE TABLE IF NOT EXISTS embeddings(id TEXT PRIMARY KEY,vector TEXT);\n      CREATE TABLE IF NOT EXISTS records(day INTEGER,name TEXT,value TEXT,PRIMARY KEY(day,name));`);\n  }\n  get(name, fallback = null) { const row = this.db.prepare('SELECT value FROM records WHERE day=? AND name=?').get(DAY, name); return row ? JSON.parse(row.value) : fallback; }\n  set(name, value) { this.db.prepare('INSERT OR REPLACE INTO records VALUES(?,?,?)').run(DAY, name, JSON.stringify(value)); }\n  budget() { return { ...this.db.prepare('SELECT COUNT(*) AS calls,COALESCE(SUM(cost),0) AS spent,COALESCE(SUM(reserve),0) AS reserved,COALESCE(SUM(input),0) AS inputTokens,COALESCE(SUM(output),0) AS outputTokens FROM calls').get(), limit: 1 }; }\n  reserve(kind, amount) {\n    this.db.exec('BEGIN IMMEDIATE');\n    try {\n      const b = this.budget(); assert(b.spent + b.reserved + amount <= 1, 'Общий бюджет $1 исчерпан. Запрос не отправлен.');\n",
+          "id": "cede0155d73728",
+          "score": 0.6769
+        },
+        {
+          "source": "challenges/day-32-ai-code-review/README.md",
+          "start": 115,
+          "end": 129,
+          "heading": "Результаты и выводы",
+          "text": "## Результаты и выводы\n\nВ [`data/reviews.json`](data/reviews.json) находятся точные diff и исходники\nдвух синтетических сценариев. В первом убрано `reserved` из проверки бюджета\nи разрешён вход при отсутствующем ожидаемом токене; во втором изменено только\nотображение стоимости. Реальные ответы модели сохраняются в\n[`results/experiment.json`](results/experiment.json) и Markdown-отчётах.\nИтог фактических проверок добавляется после запуска.\n\nСерия на двух небольших diff не измеряет качество ревью произвольных PR.\nВеб-режим рабочего дерева рассматривает только отслеживаемые разрешённые файлы.\nCI ограничивает размер и число файлов, пропускает неподдерживаемые пути.\nПроверка номера строки не доказывает наличие бага. Workflow подготовлен\nлокально; публикация и запуск настоящего GitHub PR в эту проверку не входят.\n\n",
+          "id": "31b5591e15a577",
+          "score": 0.6401
+        },
+        {
+          "source": "challenges/day-03-reasoning-comparison/README.md",
+          "start": 58,
+          "end": 72,
+          "heading": "Проверки без платных вызовов",
+          "text": "## Проверки без платных вызовов\n\n```powershell\nnpm test\nnpm run lint\nnpm run build\n```\n\nТесты проверяют эталон, четыре разных промпта, извлечение ответов экспертов,\nничью и экспорт отчёта. Они не обращаются к OpenAI.\n\nКлюч передаётся только локальному серверному runtime. Не помещайте его в код,\nMarkdown, скриншоты, логи или Git. Общие правила — в\n[CONSTRAINTS](../../docs/agent/CONSTRAINTS.md).\n\n",
+          "id": "85db29212f40a7",
+          "score": 0.6207
+        },
+        {
+          "source": "challenges/day-08-token-accounting/README.md",
+          "start": 216,
+          "end": 242,
+          "heading": "Проверки и устройство кода",
+          "text": "## Проверки и устройство кода\n\n```powershell\nnpm test\nnpm run lint\nnpm run demo\n```\n\n2026-09-13 прошли 16 тестов, проверка синтаксиса всех `.mjs` и три локальных\nсценария. Тесты проверяют реальные HTTP-форматы установленного OpenAI SDK через\nподменённый `fetch`, расчёт кеша и границу длинного тарифа, резерв контекста,\nразницу 400/429, потерю usage, обрыв ответа, ошибку записи, сохранение UTF-8 и\nвосстановление истории между сеансами CLI, расход после сброса. Отдельно\nпроверен отказ запуска без ключа. Установка зависимостей выполнена из\nлокального npm-кеша. Реальные обращения к API Дня 8 не выполнялись; реальные\nтокены, стоимость, качество длинного диалога и отказ провайдера ещё не измерены.\n\n- [agent.mjs](agent.mjs) — цикл агента, защита окна, история и журнал измерений.\n- [accounting.mjs](accounting.mjs) — серверный подсчёт, usage и стоимость.\n- [cli.mjs](cli.mjs), [report.mjs](report.mjs) — диалог, таблица и график.\n- [history.mjs](history.mjs) — отдельный путь Дня 8 и хранилище в памяти для серий.\n- [experiment.mjs](experiment.mjs) — одинаковые сценарии для симуляции и API.\n- [scripts/offline-client.mjs](scripts/offline-client.mjs) — явно условный LLM-клиент.\n\nКритерии приёмки — в [спецификации Дня 8](../../docs/features/day-08-token-accounting.md),\nвыбор реализации — в [решении 0007](../../docs/decisions/0007-day-08-cli-token-accounting.md).\n\n",
+          "id": "4764f08c35f8c7",
+          "score": 0.6161
+        },
+        {
+          "source": "challenges/day-05-model-comparison/README.md",
+          "start": 146,
+          "end": 184,
+          "heading": "Проверки и ограничения",
+          "text": "## Проверки и ограничения\n\n```powershell\nnpm test\nnpm run test:runtime\nnpm run lint\nnpm run typecheck\nnpm run build\n```\n\n70 локальных тестов проверяют тарифы, порядок девяти запросов, работу в памяти, ошибки,\nотмену, оценку ограничений, HTTP-защиту и разбор ответов без платного API. Девять\nреальных текстов проходят тот же разбор, что новые ответы; отдельные примеры\nзащищают от ложных зачётов неправильных и неоднозначных планов. Интеграционный тест\nисполняет реальный workerd Request и весь NDJSON-поток с подменой провайдера.\nПроверки типов, линтер и production-сборка пройдены. Все 70 локальных тестов\nтакже прошли с запретом записи файлов:\n`node --permission --allow-fs-read=. --test --test-isolation=none tests/*.test.mjs`.\nЛокальная страница вернула HTTP 200 и пустое начальное состояние; архивная\nсерия отсутствует в production-бандлах. Относительные ссылки документации проверены.\n06.09.2026 текущий интерфейс проверен во встроенном браузере с временной\nподменой провайдера через настоящий обработчик NDJSON: все три повтора,\nзачёт 0/29 для набора на 9 часов и 31 балл, подробный расчёт, неизвестная\nоценка, неполная сумма, итоги 79/87, 85/87 и 87/87. Проверены остановка после\nпервого ответа, очистка при новом запуске и обновлении страницы, отказ без\nключа, актуальный повтор в WebMCP и внешний вид таблицы. Ошибок JavaScript\nне обнаружено. Тестовые данные жили только в памяти, платных вызовов не было;\nадаптивность и новый запуск с реальным провайдером в этой проверке не проверялись.\nДевять архивных реальных вызовов выполнены 05.09.2026 через CLI, который\nв тот момент сохранял файлы.\n\nПроверка выделяет явно выбранный окончательный план, включая исправления,\nпереносы строк, списки и итоги арифметических выражений. В интерфейсе можно\nраскрыть распознанный блок и сравнить заявленные суммы с вычисленными.\nНеоднозначные или отсутствующие поля получают статус «не оценено»; они не\nсчитаются неудачными ответами модели. Таблица показывает сумму засчитанных\nбаллов за три повтора, число оптимальных среди оценённых и число неоценённых.\nПодробные правила зачёта и разбора — в\n[спецификации](../../docs/features/day-05-model-comparison.md#измерения-и-оценка).\n",
+          "id": "937bc4601467bd",
+          "score": 0.6074
+        },
+        {
+          "source": "challenges/day-17-tracker-tool/README.md",
+          "start": 110,
+          "end": 132,
+          "heading": "Реальные Трекер и OpenAI; расходует согласованный бюджет",
+          "text": "# Тесты, проверка типов и сборка без платных вызовов\nnpm.cmd --prefix challenges/day-17-tracker-tool run check\n# Реальные Трекер и OpenAI; расходует согласованный бюджет\nnpm.cmd --prefix challenges/day-17-tracker-tool run verify:live\n```\n\nПроверочные скрипты серии используют общий журнал бюджета вне Git; сайт хранит\nсвой журнал в каталоге данных. Локальный лимит $1 учитывает оценку расхода и\nрезервы незавершённых запросов. Перед вызовом резервируется $0,05; после ответа\nс корректной статистикой токенов резерв заменяется оценкой стоимости. При обрыве\nсвязи или отсутствии статистики резерв сохраняется, в том числе после перезапуска.\nИнтерфейс показывает расход, резерв и лимит отдельно. Это не баланс аккаунта.\nОценка стоимости учитывает\nвход по $0,25 и выход по $1,20 за миллион токенов: вход взят с запасом на cache writes.\n[Тариф модели](https://developers.openai.com/api/docs/models/gpt-5.6-luna).\n\nПри обновлении старой версии остановите сервер (Ctrl+C), снова выполните\nкоманду запуска и обновите страницу. Старый журнал будет автоматически\nскопирован в `budget-v1-backup.json`, ошибочный накопленный резерв снят, а\nсчётчики запросов, токенов и оценка расхода сохранены. Старый формат не различал\nуспешные и оборванные попытки: неизвестные расходы прошлых ошибок восстановить\nиз него нельзя. Новая версия хранит отдельный резерв каждого запроса.\n\n",
+          "id": "aba3c23b5887ed",
+          "score": 0.5888
+        },
+        {
+          "source": "fixtures/review-rules.md",
+          "start": 1,
+          "end": 1,
+          "heading": "",
+          "text": "Резервирование бюджета должно учитывать spent + reserved + amount. Лимит общий для параллельных запросов. Если токен сервиса не задан, авторизация должна быть запрещена. Округление суммы для отображения не меняет расчёт расходов.\n",
+          "id": "3cc8a5adc4ed1a",
+          "score": 0.5846
+        }
+      ],
+      "citations": {
+        "cited": [
+          1
+        ],
+        "supported": true,
+        "note": "Проверены номера источников. Это не доказательство верности каждого утверждения."
+      },
+      "model": "gpt-5.6-luna",
+      "usage": {
+        "input_tokens": 3345,
+        "input_tokens_details": {
+          "cache_write_tokens": 3342,
+          "cached_tokens": 0
+        },
+        "output_tokens": 341,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 3686
+      },
+      "elapsedMs": 4086,
+      "events": [
+        {
+          "name": "git diff / фиксированный diff",
+          "status": "completed",
+          "result": {
+            "files": [
+              "challenges/day-32-ai-code-review/fixtures/budget.mjs"
+            ]
+          }
+        },
+        {
+          "name": "RAG: документация + код",
+          "status": "completed",
+          "result": {
+            "sources": 7
+          }
+        }
+      ]
+    },
+    {
+      "title": "Учебный diff: корректное форматирование",
+      "question": "Проверь потенциальные баги, архитектуру и рекомендации.",
+      "diff": "diff --git a/challenges/day-32-ai-code-review/fixtures/display.mjs b/challenges/day-32-ai-code-review/fixtures/display.mjs\n--- a/challenges/day-32-ai-code-review/fixtures/display.mjs\n+++ b/challenges/day-32-ai-code-review/fixtures/display.mjs\n@@ -1 +1,2 @@\n-export const displayCost = cost => '$' + cost;\n+// Display only; accounting uses the original number.\n+export const displayCost = cost => '$' + cost.toFixed(4);\n",
+      "files": [
+        {
+          "path": "challenges/day-32-ai-code-review/fixtures/display.mjs",
+          "content": "// Display only; accounting uses the original number.\nexport const displayCost = cost => '$' + cost.toFixed(4);\n"
+        }
+      ],
+      "summary": "Обнаружена одна конкретная проблема: изменение ломает функцию для числовых значений, не являющихся конечными обычными числами. Для ожидаемых денежных чисел форматирование до четырёх знаков выглядит намеренным отображением.",
+      "findings": [
+        {
+          "severity": "P2",
+          "category": "bug",
+          "title": "`displayCost` падает на строках и специальных числовых значениях",
+          "file": "challenges/day-32-ai-code-review/fixtures/display.mjs",
+          "line": 2,
+          "explanation": "Раньше функция выполняла конкатенацию и принимала значения, приводимые к строке: например, `displayCost('1.2')` возвращала `$1.2`. Теперь вызывается `cost.toFixed(4)`: у строк метода нет, поэтому возникает TypeError. Кроме того, для `null`/`undefined` функция также падает, а для `NaN` и `Infinity` результатом будет `$NaN`/`$Infinity`, что может быть неприемлемо для отображения стоимости. Проблема проявится, если значение приходит из JSON, формы или другого слоя как строка, либо если расчёт стоимости невалиден.",
+          "recommendation": "Явно определить контракт входа и нормализовать значение до форматирования: например, принимать только конечное число и возвращать безопасное состояние для остальных значений, либо выполнять `Number(cost)` с проверкой `Number.isFinite`. Если строки не поддерживаются по контракту, добавьте проверку и тесты, чтобы ошибка была диагностируемой, а не возникала внутри `toFixed`."
+        }
+      ],
+      "answer": "Обнаружена одна конкретная проблема: изменение ломает функцию для числовых значений, не являющихся конечными обычными числами. Для ожидаемых денежных чисел форматирование до четырёх знаков выглядит намеренным отображением.",
+      "context": [
+        {
+          "source": "challenges/day-08-token-accounting/README.md",
+          "start": 216,
+          "end": 242,
+          "heading": "Проверки и устройство кода",
+          "text": "## Проверки и устройство кода\n\n```powershell\nnpm test\nnpm run lint\nnpm run demo\n```\n\n2026-09-13 прошли 16 тестов, проверка синтаксиса всех `.mjs` и три локальных\nсценария. Тесты проверяют реальные HTTP-форматы установленного OpenAI SDK через\nподменённый `fetch`, расчёт кеша и границу длинного тарифа, резерв контекста,\nразницу 400/429, потерю usage, обрыв ответа, ошибку записи, сохранение UTF-8 и\nвосстановление истории между сеансами CLI, расход после сброса. Отдельно\nпроверен отказ запуска без ключа. Установка зависимостей выполнена из\nлокального npm-кеша. Реальные обращения к API Дня 8 не выполнялись; реальные\nтокены, стоимость, качество длинного диалога и отказ провайдера ещё не измерены.\n\n- [agent.mjs](agent.mjs) — цикл агента, защита окна, история и журнал измерений.\n- [accounting.mjs](accounting.mjs) — серверный подсчёт, usage и стоимость.\n- [cli.mjs](cli.mjs), [report.mjs](report.mjs) — диалог, таблица и график.\n- [history.mjs](history.mjs) — отдельный путь Дня 8 и хранилище в памяти для серий.\n- [experiment.mjs](experiment.mjs) — одинаковые сценарии для симуляции и API.\n- [scripts/offline-client.mjs](scripts/offline-client.mjs) — явно условный LLM-клиент.\n\nКритерии приёмки — в [спецификации Дня 8](../../docs/features/day-08-token-accounting.md),\nвыбор реализации — в [решении 0007](../../docs/decisions/0007-day-08-cli-token-accounting.md).\n\n",
+          "id": "4764f08c35f8c7",
+          "score": 0.6417
+        },
+        {
+          "source": "challenges/day-31-developer-assistant/server/provider.mjs",
+          "start": 1,
+          "end": 29,
+          "heading": "",
+          "text": "import { DatabaseSync } from 'node:sqlite';\nimport { mkdirSync } from 'node:fs';\nimport { join } from 'node:path';\nimport { homedir } from 'node:os';\nimport { createHash, randomUUID } from 'node:crypto';\nimport { DAY } from './config.mjs';\n\nexport const MODEL = 'gpt-5.6-luna';\nexport const EMBEDDING_MODEL = 'text-embedding-3-small';\nexport const hash = value => createHash('sha256').update(value).digest('hex');\nexport const dataDirectory = () => process.env.AI_TUTORS_DATA_DIR || join(homedir(), '.ai-tutors', 'days-31-35');\nexport class PublicError extends Error {}\nexport function assert(condition, message) { if (!condition) throw new PublicError(message); }\nexport class Provider {\n  constructor({ directory = dataDirectory(), transport = fetch } = {}) {\n    mkdirSync(directory, { recursive: true }); this.directory = directory; this.transport = transport;\n    this.db = new DatabaseSync(join(directory, 'campaign.sqlite'));\n    this.db.exec(`PRAGMA busy_timeout=10000; PRAGMA journal_mode=WAL;\n      CREATE TABLE IF NOT EXISTS calls(id TEXT PRIMARY KEY,day INTEGER,kind TEXT,reserve REAL,cost REAL,input INTEGER,output INTEGER);\n      CREATE TABLE IF NOT EXISTS embeddings(id TEXT PRIMARY KEY,vector TEXT);\n      CREATE TABLE IF NOT EXISTS records(day INTEGER,name TEXT,value TEXT,PRIMARY KEY(day,name));`);\n  }\n  get(name, fallback = null) { const row = this.db.prepare('SELECT value FROM records WHERE day=? AND name=?').get(DAY, name); return row ? JSON.parse(row.value) : fallback; }\n  set(name, value) { this.db.prepare('INSERT OR REPLACE INTO records VALUES(?,?,?)').run(DAY, name, JSON.stringify(value)); }\n  budget() { return { ...this.db.prepare('SELECT COUNT(*) AS calls,COALESCE(SUM(cost),0) AS spent,COALESCE(SUM(reserve),0) AS reserved,COALESCE(SUM(input),0) AS inputTokens,COALESCE(SUM(output),0) AS outputTokens FROM calls').get(), limit: 1 }; }\n  reserve(kind, amount) {\n    this.db.exec('BEGIN IMMEDIATE');\n    try {\n      const b = this.budget(); assert(b.spent + b.reserved + amount <= 1, 'Общий бюджет $1 исчерпан. Запрос не отправлен.');\n",
+          "id": "cede0155d73728",
+          "score": 0.6274
+        },
+        {
+          "source": "challenges/day-03-reasoning-comparison/README.md",
+          "start": 58,
+          "end": 72,
+          "heading": "Проверки без платных вызовов",
+          "text": "## Проверки без платных вызовов\n\n```powershell\nnpm test\nnpm run lint\nnpm run build\n```\n\nТесты проверяют эталон, четыре разных промпта, извлечение ответов экспертов,\nничью и экспорт отчёта. Они не обращаются к OpenAI.\n\nКлюч передаётся только локальному серверному runtime. Не помещайте его в код,\nMarkdown, скриншоты, логи или Git. Общие правила — в\n[CONSTRAINTS](../../docs/agent/CONSTRAINTS.md).\n\n",
+          "id": "85db29212f40a7",
+          "score": 0.612
+        },
+        {
+          "source": "challenges/day-05-model-comparison/README.md",
+          "start": 146,
+          "end": 184,
+          "heading": "Проверки и ограничения",
+          "text": "## Проверки и ограничения\n\n```powershell\nnpm test\nnpm run test:runtime\nnpm run lint\nnpm run typecheck\nnpm run build\n```\n\n70 локальных тестов проверяют тарифы, порядок девяти запросов, работу в памяти, ошибки,\nотмену, оценку ограничений, HTTP-защиту и разбор ответов без платного API. Девять\nреальных текстов проходят тот же разбор, что новые ответы; отдельные примеры\nзащищают от ложных зачётов неправильных и неоднозначных планов. Интеграционный тест\nисполняет реальный workerd Request и весь NDJSON-поток с подменой провайдера.\nПроверки типов, линтер и production-сборка пройдены. Все 70 локальных тестов\nтакже прошли с запретом записи файлов:\n`node --permission --allow-fs-read=. --test --test-isolation=none tests/*.test.mjs`.\nЛокальная страница вернула HTTP 200 и пустое начальное состояние; архивная\nсерия отсутствует в production-бандлах. Относительные ссылки документации проверены.\n06.09.2026 текущий интерфейс проверен во встроенном браузере с временной\nподменой провайдера через настоящий обработчик NDJSON: все три повтора,\nзачёт 0/29 для набора на 9 часов и 31 балл, подробный расчёт, неизвестная\nоценка, неполная сумма, итоги 79/87, 85/87 и 87/87. Проверены остановка после\nпервого ответа, очистка при новом запуске и обновлении страницы, отказ без\nключа, актуальный повтор в WebMCP и внешний вид таблицы. Ошибок JavaScript\nне обнаружено. Тестовые данные жили только в памяти, платных вызовов не было;\nадаптивность и новый запуск с реальным провайдером в этой проверке не проверялись.\nДевять архивных реальных вызовов выполнены 05.09.2026 через CLI, который\nв тот момент сохранял файлы.\n\nПроверка выделяет явно выбранный окончательный план, включая исправления,\nпереносы строк, списки и итоги арифметических выражений. В интерфейсе можно\nраскрыть распознанный блок и сравнить заявленные суммы с вычисленными.\nНеоднозначные или отсутствующие поля получают статус «не оценено»; они не\nсчитаются неудачными ответами модели. Таблица показывает сумму засчитанных\nбаллов за три повтора, число оптимальных среди оценённых и число неоценённых.\nПодробные правила зачёта и разбора — в\n[спецификации](../../docs/features/day-05-model-comparison.md#измерения-и-оценка).\n",
+          "id": "937bc4601467bd",
+          "score": 0.6074
+        },
+        {
+          "source": "challenges/day-32-ai-code-review/README.md",
+          "start": 115,
+          "end": 129,
+          "heading": "Результаты и выводы",
+          "text": "## Результаты и выводы\n\nВ [`data/reviews.json`](data/reviews.json) находятся точные diff и исходники\nдвух синтетических сценариев. В первом убрано `reserved` из проверки бюджета\nи разрешён вход при отсутствующем ожидаемом токене; во втором изменено только\nотображение стоимости. Реальные ответы модели сохраняются в\n[`results/experiment.json`](results/experiment.json) и Markdown-отчётах.\nИтог фактических проверок добавляется после запуска.\n\nСерия на двух небольших diff не измеряет качество ревью произвольных PR.\nВеб-режим рабочего дерева рассматривает только отслеживаемые разрешённые файлы.\nCI ограничивает размер и число файлов, пропускает неподдерживаемые пути.\nПроверка номера строки не доказывает наличие бага. Workflow подготовлен\nлокально; публикация и запуск настоящего GitHub PR в эту проверку не входят.\n\n",
+          "id": "31b5591e15a577",
+          "score": 0.5895
+        },
+        {
+          "source": "challenges/day-20-mcp-orchestration/README.md",
+          "start": 132,
+          "end": 153,
+          "heading": "Два настоящих отчёта и чтение последнего через OpenAI и MCP",
+          "text": "# Локальные тесты, типы и сборка без платных вызовов\nnpm.cmd --prefix challenges/day-20-mcp-orchestration run check\n# Два настоящих отчёта и чтение последнего через OpenAI и MCP\nnpm.cmd --prefix challenges/day-20-mcp-orchestration run verify:live\n```\n\nПроверочные скрипты серии используют общий журнал бюджета вне Git; сайт хранит\nсвой журнал в каталоге данных. Из локального лимита $1 перед API-вызовом\nрезервируется $0,05. Ответ с корректной статистикой токенов заменяет резерв\nоценкой стоимости; при обрыве связи или отсутствии статистики резерв сохраняется\nпосле перезапуска. Следующий запрос разрешён, если расход вместе с резервами\nи новым резервом укладывается в лимит. Все три суммы показаны в интерфейсе.\nЛокальный предел не равен балансу аккаунта. Оценка расхода использует вход\nпо $0,25 за миллион с запасом на cache writes и выход по $1,20.\n[Тариф GPT-5.6 Luna](https://developers.openai.com/api/docs/models/gpt-5.6-luna).\n\nПосле обновления перезапустите сервер (Ctrl+C и прежняя команда запуска), затем\nобновите страницу. Старый журнал автоматически копируется в `budget-v1-backup.json`:\nнакопленный ошибочный резерв снимается, статистика запросов и токенов и оценка\nрасхода сохраняются. Старый формат не позволяет восстановить неизвестную\nстоимость прошлых оборванных запросов. Новые резервы привязаны к отдельным вызовам.\n\n",
+          "id": "54af42c111bf0e",
+          "score": 0.5771
+        },
+        {
+          "source": "challenges/day-11-memory-layers/README.md",
+          "start": 70,
+          "end": 110,
+          "heading": "Решение",
+          "text": "[документация Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs#handling-mistakes)\nотдельно отмечает возможность содержательных ошибок.\n\n## Решение\n\n**Замысел.** Создать локальную лабораторию, где человек общается с агентом\nи сразу видит, что тот помнит. Рядом с чатом находятся три слоя памяти:\nпользователь сам сохраняет нужный факт в данные задачи или долговременные\nсведения. Затем он может задать один вопрос с разным составом памяти\nи сопоставить ответы. Такая демонстрация связывает каждое действие сохранения\nс видимым изменением контекста.\n\n**Устройство.** Это самостоятельный сайт на React и TypeScript с локальным\nсервером Node.js. Сервер хранит последние шесть сообщений в `sessions.json`,\nрабочие сведения — в `tasks.json`, долговременные — в `long-term.json`.\nДанные лежат в `~/.ai-tutors/memory-lab-day-11/` вне репозитория.\nУказатель `CURRENT.json` публикует согласованную версию всех файлов.\n\nОбычная переписка пополняет только краткосрочную память. Рабочие и\nдолговременные записи меняются вручную. Новый диалог сохраняет остальные\nслои, новая задача получает пустые диалог и рабочую память. Продолжение\nвосстанавливает сохранённое состояние. Сайт показывает фактический контекст\nAPI и сравнивает четыре варианта из одного снимка: все слои, без краткосрочного,\nбез рабочего и без долговременного. Ответы сравнения в диалог не записываются.\nПодробные правила — в [спецификации](../../docs/features/day-11-memory-layers.md).\n\nНужен Node.js 22.13 или новее. Команды выполняются из корня репозитория.\nПервая устанавливает зависимости,\nвторая запускает API и сайт на [localhost:3011](http://localhost:3011):\n\n```powershell\nnpm.cmd --prefix challenges/day-11-memory-layers ci\nnpm.cmd --prefix challenges/day-11-memory-layers start\n```\n\nПо умолчанию ответы получает `gpt-5.6-luna` через OpenAI; ключ должен быть\nв серверной переменной окружения `OPENAI_API_KEY`. Браузер его не получает.\nКаждая отправка и каждый вариант сравнения расходуют API-токены; сайт показывает\nфактический расход. Для знакомства без API можно вручную включить демонстрацию:\nона явно помечена как симуляция и не оценивает качество модели.\n\n",
+          "id": "68f72e5f6f4210",
+          "score": 0.5757
+        }
+      ],
+      "citations": {
+        "cited": [],
+        "supported": false,
+        "note": "Проверены номера источников. Это не доказательство верности каждого утверждения."
+      },
+      "model": "gpt-5.6-luna",
+      "usage": {
+        "input_tokens": 3807,
+        "input_tokens_details": {
+          "cache_write_tokens": 3804,
+          "cached_tokens": 0
+        },
+        "output_tokens": 341,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 4148
+      },
+      "elapsedMs": 5153,
+      "events": [
+        {
+          "name": "git diff / фиксированный diff",
+          "status": "completed",
+          "result": {
+            "files": [
+              "challenges/day-32-ai-code-review/fixtures/display.mjs"
+            ]
+          }
+        },
+        {
+          "name": "RAG: документация + код",
+          "status": "completed",
+          "result": {
+            "sources": 7
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "bugs", "title": "Учебный diff: резерв бюджета и авторизация",
+    "diff": "diff --git a/challenges/day-32-ai-code-review/fixtures/budget.mjs b/challenges/day-32-ai-code-review/fixtures/budget.mjs\n--- a/challenges/day-32-ai-code-review/fixtures/budget.mjs\n+++ b/challenges/day-32-ai-code-review/fixtures/budget.mjs\n@@ -1,5 +1,5 @@\n export function reserve(spent, reserved, amount, limit) {\n-  if (spent + reserved + amount > limit) throw new Error('Budget exceeded');\n+  if (spent + amount > limit) throw new Error('Budget exceeded');\n   return reserved + amount;\n }\n-export const authorized = (actual, expected) => Boolean(expected) && actual === expected;\n+export const authorized = (actual, expected) => !expected || actual === expected;\n",
+    "files": [{ "path": "challenges/day-32-ai-code-review/fixtures/budget.mjs", "content": "export function reserve(spent, reserved, amount, limit) {\n  if (spent + amount > limit) throw new Error('Budget exceeded');\n  return reserved + amount;\n}\nexport const authorized = (actual, expected) => !expected || actual === expected;\n" }]
+  },
+  {
+    "id": "clean", "title": "Учебный diff: корректное форматирование",
+    "diff": "diff --git a/challenges/day-32-ai-code-review/fixtures/display.mjs b/challenges/day-32-ai-code-review/fixtures/display.mjs\n--- a/challenges/day-32-ai-code-review/fixtures/display.mjs\n+++ b/challenges/day-32-ai-code-review/fixtures/display.mjs\n@@ -1 +1,2 @@\n-export const displayCost = cost => '$' + cost;\n+// Display only; accounting uses the original number.\n+export const displayCost = cost => '$' + cost.toFixed(4);\n",
+    "files": [{ "path": "challenges/day-32-ai-code-review/fixtures/display.mjs", "content": "// Display only; accounting uses the original number.\nexport const displayCost = cost => '$' + cost.toFixed(4);\n" }]
+  }
+]

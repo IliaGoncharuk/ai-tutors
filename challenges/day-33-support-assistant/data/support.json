@@ -1,0 +1,15 @@
+{
+  "product": "TutorDesk — синтетическая учебная платформа",
+  "users": [
+    { "id": "U-101", "plan": "student", "emailVerified": false, "accountLocked": false, "sessionExpired": false },
+    { "id": "U-102", "plan": "student", "emailVerified": true, "accountLocked": true, "sessionExpired": false },
+    { "id": "U-103", "plan": "teacher", "emailVerified": true, "accountLocked": false, "sessionExpired": true },
+    { "id": "U-104", "plan": "student", "emailVerified": true, "accountLocked": false, "sessionExpired": false }
+  ],
+  "tickets": [
+    { "id": "T-101", "userId": "U-101", "subject": "Вход после регистрации", "status": "open", "observedError": "EMAIL_UNVERIFIED", "message": "Создал учебный аккаунт, войти не получается." },
+    { "id": "T-102", "userId": "U-102", "subject": "Повторные неудачные попытки входа", "status": "open", "observedError": "ACCOUNT_LOCKED", "failedAttempts": 5, "message": "Несколько раз ошибся с паролем, теперь вход недоступен." },
+    { "id": "T-103", "userId": "U-103", "subject": "Выход из старой вкладки", "status": "open", "observedError": "SESSION_EXPIRED", "message": "Оставил страницу открытой, вернулся и получил ошибку." },
+    { "id": "T-104", "userId": "U-104", "subject": "Причина входа пока неизвестна", "status": "open", "observedError": null, "message": "Не могу войти. Текст ошибки не записал." }
+  ]
+}

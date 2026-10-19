@@ -1,0 +1,11 @@
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { z } from 'zod';
+import { branch, listFiles, readSource } from './repository.mjs';
+const server = new McpServer({ name: 'ai-tutors-project', version: '1.0.0' });
+const wrap = fn => async args => { try { return { content: [{ type: 'text', text: JSON.stringify(await fn(args)) }] }; } catch { return { isError: true, content: [{ type: 'text', text: 'Операция отклонена: проверьте допустимый путь или доступность Git.' }] }; } };
+const register = (name, description, inputSchema, fn) => server.registerTool(name, { description, inputSchema, annotations: { readOnlyHint: true, openWorldHint: false, destructiveHint: false } }, wrap(fn));
+register('git_branch', 'Получить текущую ветку и короткий hash коммита проекта.', {}, branch);
+register('list_files', 'Получить список разрешённых файлов документации и исходников.', {}, async () => ({ files: await listFiles() }));
+register('read_file', 'Прочитать разрешённый файл проекта; секреты и служебные каталоги недоступны.', { path: z.string().max(240) }, async ({ path }) => ({ path, text: await readSource(path) }));
+await server.connect(new StdioServerTransport());

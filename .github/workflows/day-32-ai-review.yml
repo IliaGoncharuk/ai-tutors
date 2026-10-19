@@ -1,0 +1,53 @@
+name: Day 32 — AI code review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+concurrency:
+  group: ai-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Explain fork restriction
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        run: echo 'AI review skipped for a fork PR because API secrets are unavailable.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Checkout trusted base (never execute PR code)
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Node
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Read PR objects and install trusted review dependencies
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git fetch --no-tags origin "$PR_HEAD_SHA"
+          npm ci --ignore-scripts --prefix challenges/day-32-ai-code-review
+      - name: Review diff
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          AI_TUTORS_DATA_DIR: ${{ runner.temp }}/ai-tutors-budget
+          REVIEW_OUTPUT_DIR: ${{ runner.temp }}/ai-review-output
+        run: node challenges/day-32-ai-code-review/scripts/ci-review.mjs
+      - name: Save report
+        if: github.event.pull_request.head.repo.full_name == github.repository && success()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ai-review-${{ github.event.pull_request.number }}
+          path: ${{ runner.temp }}/ai-review-output/
+          retention-days: 7

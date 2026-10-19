@@ -1,0 +1,12 @@
+{
+  "name": "AI Tutors",
+  "contextPaths": ["README.md", "docs/agent/PROJECT.md", "docs/decisions/0019-days-31-35-project-assistants.md", "challenges/day-35-release-assistant/README.md"],
+  "requiredFiles": ["README.md", "docs/README.md", "AGENTS.md"],
+  "checks": [
+    { "name": "day-31", "command": ["npm", "run", "check"], "cwd": "challenges/day-31-developer-assistant", "timeoutMs": 60000 },
+    { "name": "day-32", "command": ["npm", "run", "check"], "cwd": "challenges/day-32-ai-code-review", "timeoutMs": 60000 },
+    { "name": "day-33", "command": ["npm", "run", "check"], "cwd": "challenges/day-33-support-assistant", "timeoutMs": 60000 },
+    { "name": "day-34", "command": ["npm", "run", "check"], "cwd": "challenges/day-34-project-file-assistant", "timeoutMs": 60000 },
+    { "name": "day-35", "command": ["npm", "run", "check"], "cwd": "challenges/day-35-release-assistant", "timeoutMs": 60000 }
+  ]
+}

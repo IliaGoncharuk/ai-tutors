@@ -34,6 +34,11 @@
 - [День 28 — локальный RAG и сравнение генерации](challenges/day-28-local-rag/README.md)
 - [День 29 — настройка локальной модели](challenges/day-29-local-llm-optimization/README.md)
 - [День 30 — приватный сервис в домашней сети](challenges/day-30-private-local-service/README.md)
+- [День 31 — ассистент разработчика с RAG и MCP](challenges/day-31-developer-assistant/README.md)
+- [День 32 — автоматическое AI-ревью кода](challenges/day-32-ai-code-review/README.md)
+- [День 33 — поддержка с контекстом тикета](challenges/day-33-support-assistant/README.md)
+- [День 34 — агент для операций с файлами](challenges/day-34-project-file-assistant/README.md)
+- [День 35 — переносимый CLI подготовки релиза](challenges/day-35-release-assistant/README.md)
 
 ## Локальные сайты дней 11–15
 
@@ -129,6 +134,36 @@ JSON-протоколах соответствующих дней.
 сеть и требует `DAY30_SERVICE_TOKEN`; настройте его по README задания. LM Studio
 остаётся локальной службой, облачные вызовы Дня 28 выполняются только вручную
 и требуют `OPENAI_API_KEY`. Все запущенные сайты останавливаются через Ctrl+C.
+
+## Локальные сайты дней 31–35
+
+Пять самостоятельных приложений в отдельных папках. Нужен Node.js 22.13+.
+Для дней 31–34 сначала выполните `npm.cmd ci` в папке задания; день 35
+не имеет внешних npm-зависимостей. Команды ниже запускаются из корня:
+
+| День | Адрес | Запуск |
+| --- | --- | --- |
+| 31 — проект | [127.0.0.1:3031](http://127.0.0.1:3031) | `npm.cmd --prefix challenges/day-31-developer-assistant start` |
+| 32 — ревью | [127.0.0.1:3032](http://127.0.0.1:3032) | `npm.cmd --prefix challenges/day-32-ai-code-review start` |
+| 33 — поддержка | [127.0.0.1:3033](http://127.0.0.1:3033) | `npm.cmd --prefix challenges/day-33-support-assistant start` |
+| 34 — файлы | [127.0.0.1:3034](http://127.0.0.1:3034) | `npm.cmd --prefix challenges/day-34-project-file-assistant start` |
+| 35 — релиз | [127.0.0.1:3035](http://127.0.0.1:3035) | `npm.cmd --prefix challenges/day-35-release-assistant start` |
+
+«Открыть сохранённый пример» показывает реальные записанные результаты без
+ключа и новых расходов; повторный клик переключает примеры. Новые запросы
+используют серверный `OPENAI_API_KEY` и передают выбранные материалы в OpenAI.
+В днях 31–33 сначала обновите индекс. Общий бюджет одного локального журнала
+— $1. Для продолжения журнала выполненной серии задайте из корня
+`$env:AI_TUTORS_DATA_DIR = Join-Path (Get-Location) '.local-days-31-35'`.
+Без этой переменной используется `~/.ai-tutors/days-31-35`, новый журнал.
+
+День 34 изменяет только учебную копию, а день 35 также работает как переносимый
+CLI `ai-release` в других Git-проектах. Конфигурация проверок AI Tutors —
+[`ai-release.config.json`](ai-release.config.json). Порядок подключения и
+подготовки релиза — в [README Дня 35](challenges/day-35-release-assistant/README.md).
+Все сайты останавливаются через Ctrl+C. GitHub workflow Дня 32 подготовлен
+локально; реальный удалённый запуск требует включения в base-ветку и настройки
+Actions Secret. Публикация PR и релиза автоматически не выполняется.
 
 ## Справочные материалы
 
